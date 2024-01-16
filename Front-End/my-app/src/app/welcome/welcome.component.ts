@@ -120,13 +120,13 @@ export class WelcomeComponent implements OnInit {
         const courses = response as Course[]; 
         console.log('Lista destinazioni:', courses);
         
-        // Popola array di opzioni per il campo "Partenza" (start_location_id)
+        
         this.partenzaOptions = courses.map(course => ({
           value: course.startLocation.id,
           label: course.startLocation.name
         }));
   
-        // Popola array di opzioni per il campo "Destinazione" (end_location_id)
+       
         this.destinazioneOptions = courses.map(course => ({
           value: course.endLocation.id,
           label: course.endLocation.name
