@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>it.parthenope.taxi</groupId>
+	<artifactId>Taxi</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Taxi</name>
+	<description>Si vuole sviluppare un’applicazione per la gestione di Taxi. Si suppone di avere una flotta di automobili posizionate in appositi parcheggi. Il sistema viene gestito in modalità amministratore, tassista o cliente.  L’amministratore può:  aggiungere una nuova auto aggiornare le tariffe per le corse visualizzare le statistiche sulle diverse tratte effettuate Un cliente può effettuare le seguenti operazioni:  prenotare un Taxi (via sms o e-mail) e aspettare presso una postazione predisposta  pagamento della corsa secondo le modalità: contanti, carta di credito o bancomat. Il costo della corsa viene stabilito automaticamente in base ai chilometri effettuati     Un tassista può effettuare le seguenti operazioni:  accettare o rifiutare una chiamata di intervento Sviluppare un programma per la simulazione del sistema, garantendo le opportune interfacce grafiche.</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

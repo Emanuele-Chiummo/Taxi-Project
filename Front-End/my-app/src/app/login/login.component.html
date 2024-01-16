@@ -1,0 +1,37 @@
+<div class="title" *ngIf="logged != 'logged'">
+  <h1 style="font-weight: bold; color: black;">
+    TAXI APP RESERVATION
+  </h1>
+</div>
+
+
+<div class="container" *ngIf="logged != 'logged'">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-12" style="width: 25em;">
+      <div class="card">
+        <div class="card-header bg-warning text-dark text-center">
+          <h4>Login</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="myForm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username"
+                placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password"
+                placeholder="Enter your password">
+            </div>
+            <div class="d-flex">
+              <a href="">Non hai un account? Registrati</a>
+              <button type="button" class="btn btn-dark btn-lg" (click)="login()" style="width: 5em"
+                [disabled]="!myForm.valid">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
