@@ -5,6 +5,26 @@ import { FormControl, FormGroup, FormsModule, FormBuilder, Validators } from '@a
 import { TaxiServicesService } from '../services/taxi-services.service';
 import { log } from 'console';
 
+interface Course {
+  id: number;
+  startLocation: {
+    id: number;
+    name: string;
+    gps: string;
+  };
+  endLocation: {
+    id: number;
+    name: string;
+    gps: string;
+  };
+  km: number;
+  ratesType: {
+    id: number;
+    ratesType: string;
+    amount: number;
+  };
+}
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -19,8 +39,14 @@ export class WelcomeComponent implements OnInit {
   tassista: any = false
   $: any;
   taxi: any[] = []
+
+  partenzaOptions: { value: number, label: string }[] = [];
+  destinazioneOptions: { value: number, label: string }[] = [];
+
+
   detTaxi: any[] = []
   clienteNome: any;
+  taxiService: any;
   constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,) {
     this.richiesteForm = this.fb.group({
       partenza: ['', [Validators.required]],
@@ -88,12 +114,29 @@ export class WelcomeComponent implements OnInit {
     console.log('Dettagli della prenotazione:', this.richiesteForm.value);
   }
 
+  CourseMethod() {
+    this.ts.getAllDestinations().subscribe(
+      response => {
+        const courses = response as Course[]; 
+        console.log('Lista destinazioni:', courses);
+        
+        // Popola array di opzioni per il campo "Partenza" (start_location_id)
+        this.partenzaOptions = courses.map(course => ({
+          value: course.startLocation.id,
+          label: course.startLocation.name
+        }));
+  
+        // Popola array di opzioni per il campo "Destinazione" (end_location_id)
+        this.destinazioneOptions = courses.map(course => ({
+          value: course.endLocation.id,
+          label: course.endLocation.name
+        }));
+      },
+      error => {
+        console.error('Errore nella chiamata API:', error);
+      }
+    );
+  }
+  }
+  
 
-
-
-
-
-
-
-
-}

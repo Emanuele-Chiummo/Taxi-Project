@@ -41,7 +41,9 @@
       <hr class="my-4">
       <p>Altro testo informativo.</p>
       <p class="lead">
-        <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste">Prenota un taxi</a>
+        <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste" (click)="CourseMethod()">Prenota un taxi</a>
+
+        <!--<button class="btn btn-warning" (click)="CourseMethod()">SONO UN BOTTONE</button>-->
       </p>
     </div>
   </div>
@@ -89,12 +91,16 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="partenza" class="text-black">Partenza<span class="text-danger">*</span></label>
-              <input type="text" formControlName="partenza" class="form-control" id="partenza" placeholder="Inserisci luogo di partenza">
+              <select formControlName="partenza" class="form-select" id="partenza">
+                <option *ngFor="let option of partenzaOptions" [value]="option.value">{{ option.label }}</option>
+              </select>
             </div>
-  
+            
             <div class="mb-3">
               <label for="destinazione" class="text-black">Destinazione<span class="text-danger">*</span></label>
-              <input type="text" formControlName="destinazione" class="form-control" id="destinazione" placeholder="Inserisci luogo di destinazione">
+              <select formControlName="destinazione" class="form-select" id="destinazione">
+                <option *ngFor="let option of destinazioneOptions" [value]="option.value">{{ option.label }}</option>
+              </select>
             </div>
 
             <div class="mb-3">

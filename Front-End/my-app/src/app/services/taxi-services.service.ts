@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TaxiServicesService {
+  getAllCourse() {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +22,7 @@ export class TaxiServicesService {
   }
 
   getAllDestinations(): Observable <any>{
-    return this.http.get <any>('http://localhost:8080/api/') 
+    return this.http.get <any>('http://localhost:8080/api/course') 
 
   }
 }
