@@ -43,12 +43,11 @@ public class RequestController {
 	
 	@PutMapping("/api/request/{id}")
     public ResponseEntity<RequestDto> updateRequest(@PathVariable Integer id, @RequestBody RequestDto requestDto) {
-        // Verifica se la richiesta con l'ID specificato esiste
+
         if (!requestService.requestExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        // Aggiorna la richiesta
         requestDto.setId(id);
         requestService.updateRequest(requestDto);
 
