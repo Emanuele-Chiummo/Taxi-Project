@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333;
+  /* background-color: #333; */
 }
 
 .navbar {
@@ -35,6 +35,23 @@
       #333 84%, #ffcc00 84%);
   animation: moveStripes 6s linear infinite;
   /* L'animazione dura 4 secondi, è lineare e viene eseguita all'infinito */
+}
+
+.concentric-container {
+  margin-top: 0.3%;
+  margin-left: 1%;
+  width: 9%;
+  height: 86%;
+  background-color: #333;
+  border: 6px solid #ffcc00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li{
+  text-wrap: nowrap;
 }
 
 #logout :hover {

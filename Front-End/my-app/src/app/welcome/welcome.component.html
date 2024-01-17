@@ -104,7 +104,7 @@
             <div class="mb-3">
               <label for="partenza_destinazione" class="text-black">Seleziona la tratta<span class="text-danger">*</span></label>
               <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione">
-                <option *ngFor="let option of combinedOptions" [value]="option.value">{{ option.label }}</option>
+                <option *ngFor="let option of destinations" [value]="option">{{ option }}</option>
               </select>
             </div>
             
