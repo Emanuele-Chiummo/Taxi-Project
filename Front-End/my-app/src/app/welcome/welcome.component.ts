@@ -42,6 +42,14 @@ export class WelcomeComponent implements OnInit {
 
   partenzaOptions: { value: number, label: string }[] = [];
   destinazioneOptions: { value: number, label: string }[] = [];
+  
+  // Combina le opzioni di partenzaOptions e destinazioneOptions
+  combinedOptions: { value: number, label: string }[] = [];
+  
+
+  
+
+  
 
 
   detTaxi: any[] = []
@@ -131,6 +139,14 @@ export class WelcomeComponent implements OnInit {
           value: course.endLocation.id,
           label: course.endLocation.name
         }));
+
+// Combina le opzioni di partenzaOptions e destinazioneOptions
+this.combinedOptions = [];
+
+// Aggiungi l'opzione con la concatenazione come primo elemento
+this.combinedOptions.push({ value: -1, label: `${this.partenzaOptions[0].label} - ${this.destinazioneOptions[0].label}` });
+
+
       },
       error => {
         console.error('Errore nella chiamata API:', error);

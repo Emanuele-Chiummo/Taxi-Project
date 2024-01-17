@@ -87,7 +87,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
+            <!--<div class="mb-3">
               <label for="partenza" class="text-black">Partenza<span class="text-danger">*</span></label>
               <select formControlName="partenza" class="form-select" id="partenza">
                 <option *ngFor="let option of partenzaOptions" [value]="option.value">{{ option.label }}</option>
@@ -99,7 +99,18 @@
               <select formControlName="destinazione" class="form-select" id="destinazione">
                 <option *ngFor="let option of destinazioneOptions" [value]="option.value">{{ option.label }}</option>
               </select>
+            </div>-->
+            
+            <div class="mb-3">
+              <label for="partenza_destinazione" class="text-black">Seleziona la tratta<span class="text-danger">*</span></label>
+              <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione">
+                <option *ngFor="let option of combinedOptions" [value]="option.value">{{ option.label }}</option>
+              </select>
             </div>
+            
+            
+            
+            
 
             <div class="mb-3">
                 <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
