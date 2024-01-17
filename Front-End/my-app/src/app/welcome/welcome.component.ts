@@ -18,12 +18,13 @@ export class WelcomeComponent implements OnInit {
   cliente: any = false
   tassista: any = false
   $: any;
+  request: any[] = []
   taxi: any[] = []
   combinedOptions: { value: number, label: string }[] = [];
   destinations: any[] = []
 
-
   detTaxi: any[] = []
+  detRequest: any[] = []
   clienteNome: any;
   taxiService: any;
   constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,) {
@@ -53,7 +54,7 @@ export class WelcomeComponent implements OnInit {
       this.cliente = true
       this.tassista = false
       console.log('yes', this.cliente);
-    } else if (localStorage.getItem('role') === 'tasista') {
+    } else if (localStorage.getItem('role') === 'tassista') {
       this.admin = false
       this.cliente = false
       this.tassista = true
@@ -103,6 +104,65 @@ export class WelcomeComponent implements OnInit {
       }
     );
   }
+
+  getAllRequest() {
+    this.ts.getAllRequest().subscribe(
+      x => {
+        this.request = x;
+        console.log('Risposta alla chiamata getAllRequest:', x);
+      },
+      error => {
+        console.error('Errore nella chiamata getAllRequest:', error);
+      }
+    );
+  }
+
+  updateRequest(requestId: number, updatedRequest: any): void {
+    this.ts.updateRequest(requestId, updatedRequest).subscribe(
+      (response) => {
+        console.log('Aggiornamento riuscito:', response);
+        // Puoi aggiornare la tua tabella o eseguire altre azioni dopo l'aggiornamento
+      },
+      (error) => {
+        console.error('Errore durante l\'aggiornamento:', error);
+        // Gestisci l'errore come preferisci
+      }
+    );
+  }
+
+  acceptRequest(requestId: number): void {
+    
+    const updatedRequest = this.request.find(r => r.id === requestId);
+    updatedRequest.state = 'Accettata';
+
+   
+    this.updateRequest(requestId, updatedRequest);
+  }
+
+  rejectRequest(requestId: number): void {
+    
+    const updatedRequest = this.request.find(r => r.id === requestId);
+    updatedRequest.state = 'Rifiutata';
+
+    this.updateRequest(requestId, updatedRequest);
+  }
+
+
+  
+  
+
+  dettaglioRequest(request: any) {
+    this.detTaxi.push(request)
+  }
+
+
+
+  
+
+  
+
+
+  
 }
 
 

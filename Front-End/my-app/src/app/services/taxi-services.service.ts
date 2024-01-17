@@ -25,4 +25,15 @@ export class TaxiServicesService {
     return this.http.get <any>('http://localhost:8080/api/course') 
 
   }
+
+  getAllRequest(): Observable <any>{
+    return this.http.get <any>('http://localhost:8080/api/request')
+  }
+
+  updateRequest(requestId: number, updatePayload: any): Observable<any> {
+
+    return this.http.put<any>('http://localhost:8080/api/request/' + requestId, updatePayload);
+  }
+
+
 }

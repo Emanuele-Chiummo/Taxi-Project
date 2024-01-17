@@ -50,6 +50,71 @@
 
 <div *ngIf="tassista == true">
 
+  <h1 style="text-align: center;">CIAO</h1>
+
+ 
+<button (click)="getAllRequest()" class="btn btn-primary">Carica Richieste</button>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered table-request" style="width: 60em;">
+        <thead>
+          <tr>
+            <th>ID Richiesta</th>
+            <th>Partenza</th>
+            <th>Destinazione</th>
+            <th>KM</th>
+            <th>Tipo Corsa</th>
+            <th>Prezzo</th>
+            <th>Utente</th>
+            <th>Numero di telefono</th>
+            <th>Data</th>
+            <th>Stato</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of request">
+            <td>{{ r.course.id }}</td>
+            <td>{{ r.course.startLocation.name }}</td>
+            <td>{{ r.course.endLocation.name }}</td>
+            <td>{{ r.course.km }}</td>
+            <td>{{ r.course.ratesType.ratesType }}</td>
+            <td>{{ r.course.ratesType.amount }}</td>
+            <td>{{ r.taxi.driver.name }}</td>
+            <td>{{ r.taxi.driver.mobilePhone }}</td>
+            <td>{{ r.date }}</td>
+            <td>{{ r.state }}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success btn-sm" (click)="acceptRequest(r.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M6.742 12.742a1 1 0 0 1-1.415 0L2.322 9.322a1 1 0 1 1 1.415-1.415L6 10.585l6.263-6.263a1 1 0 1 1 1.415 1.415l-7 7z"/>
+                  </svg>
+                </button>
+                <!-- Pulsante per rifiutare la richiesta -->
+                <button type="button" class="btn btn-danger btn-sm" (click)="rejectRequest(r.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M1 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm14-1a.5.5 0 0 1 .5.5v14a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5zM1 2a.5.5 0 0 1 .354.146L8 8.586l6.646-6.646a.5.5 0 1 1 .708.708L8.707 9.707a1 1 0 0 1-1.414 0L1.646 2.146A.5.5 0 0 1 2 1z"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 </div>
 
 

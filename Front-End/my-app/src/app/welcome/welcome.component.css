@@ -46,4 +46,38 @@
     border-color: #e5b300; /* Colore del bordo del bottone primario al passaggio del mouse */
     color: #333333; /* Colore del testo del bottone primario al passaggio del mouse */
   }
+
+  .container {
+    padding: 2rem 0rem;
+  }
   
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+  .table-image {
+    td, th {
+      vertical-align: middle;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 5px;
+    
+  }
+/* Aggiungi questo stile per allineare le icone al centro verticalmente nei bottoni */
+.btn-group .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25%;
+  padding: 0.2rem 0.35rem; /* Puoi regolare questi valori in base alle tue preferenze */
+}
+
+/* Aggiungi questo stile per regolare le dimensioni delle icone */
+.btn-group .btn svg {
+  width: 1em;
+  height: 1em;
+}
+

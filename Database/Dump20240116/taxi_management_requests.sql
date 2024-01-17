@@ -27,7 +27,7 @@ CREATE TABLE `requests` (
   `course_id` int NOT NULL,
   `taxi_id` int DEFAULT NULL,
   `date` datetime NOT NULL,
-  `state` varchar(1) NOT NULL,
+  `state` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_requests_courses_idx` (`course_id`),
   KEY `FK_requests_taxi_idx` (`taxi_id`),
@@ -42,7 +42,7 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-INSERT INTO `requests` VALUES (1,6,8,'2024-01-10 00:00:00','S');
+INSERT INTO `requests` VALUES (1,6,8,'2024-01-10 00:00:00','Accettata');
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-16 21:38:51
+-- Dump completed on 2024-01-17 22:27:31

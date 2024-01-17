@@ -35,7 +35,7 @@ CREATE TABLE `courses` (
   CONSTRAINT `FK_courses_locations_end` FOREIGN KEY (`end_location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `FK_courses_locations_start` FOREIGN KEY (`start_location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `FK_courses_rates` FOREIGN KEY (`rates_id`) REFERENCES `rates` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (6,12,11,15.50,6),(7,13,14,15.50,6);
+INSERT INTO `courses` VALUES (6,12,11,15.50,6),(7,12,13,15.50,6),(8,13,14,8.00,7);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-16 21:38:51
+-- Dump completed on 2024-01-17 22:27:31

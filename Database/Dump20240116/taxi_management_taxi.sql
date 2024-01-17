@@ -30,7 +30,7 @@ CREATE TABLE `taxi` (
   UNIQUE KEY `identificativo_UNIQUE` (`identifier`),
   KEY `FK_taxi_users_idx` (`driver_id`),
   CONSTRAINT `FK_taxi_users` FOREIGN KEY (`driver_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-16 21:38:51
+-- Dump completed on 2024-01-17 22:27:32
