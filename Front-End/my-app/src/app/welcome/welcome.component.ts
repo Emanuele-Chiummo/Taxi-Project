@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth-service.service';
 import { FormControl, FormGroup, FormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TaxiServicesService } from '../services/taxi-services.service';
 import { log } from 'console';
+import { UserServiceService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-welcome',
@@ -25,6 +26,8 @@ export class WelcomeComponent implements OnInit {
   combinedOptions: { value: number, label: string }[] = [];
   destinations: { destination: any, rate: number }[] = []
 
+  selectedCourse: any; // Sostituisci 'any' con il tipo appropriato della tua corsa
+
   detTaxi: any[] = []
   detRequest: any[] = []
   clienteNome: any;
@@ -32,7 +35,7 @@ export class WelcomeComponent implements OnInit {
   rate: any;
   payment: boolean = false;
   course: any;
-  constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,) {
+  constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,private userService: UserServiceService) {
     this.richiesteForm = this.fb.group({
       partenza_destinazione: ['', [Validators.required]],
       data: ['', [Validators.required]],
@@ -49,6 +52,9 @@ export class WelcomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    
+    
     if (!this.authService.isLogged()) {
       this.router.navigate(['/home']);
     }
@@ -104,7 +110,7 @@ export class WelcomeComponent implements OnInit {
 
 
 
-  CourseMethod() {
+  /* CourseMethod() {
     this.ts.getAllDestinations().subscribe(
       response => {
         response.forEach((element: any) => {
@@ -116,7 +122,24 @@ export class WelcomeComponent implements OnInit {
         console.error('Errore nella chiamata API:', error);
       }
     );
+  } */
+
+  CourseMethod() {
+    this.ts.getAllDestinations().subscribe(
+      response => {
+        response.forEach((element: any) => {
+          this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
+        });
+  
+        // Memorizza la corsa selezionata (usando la prima corsa come esempio)
+        this.selectedCourse = response[0];
+      },
+      error => {
+        console.error('Errore nella chiamata API:', error);
+      }
+    );
   }
+  
 
   getAllRequest() {
     this.ts.getAllRequest().subscribe(
@@ -186,22 +209,56 @@ export class WelcomeComponent implements OnInit {
 
   paymentSuccess() {
 
-    
-    let body = {
-      course: this.course,
-      date: this.data + ' ' + this.ora + ':00',
-      state: ''
+    if (!this.selectedCourse) {
+      console.error('Errore: Nessuna corsa selezionata.');
+      return;
     }
-    this.ts.createRequest(body).subscribe(x => {
-      console.log(x);
-      this.formsReset()
-      this.payment = true;
-      setTimeout(() => {
-        this.payment = false;
-      }, 3000);
-    })
-
+  
+    let formattedDate = `${this.data}T${this.ora}:00`;
+    let body = {
+      id: 0,
+      course: {
+        id: this.selectedCourse.id,
+        startLocation: {
+          id: this.selectedCourse.startLocation.id,
+          name: this.selectedCourse.startLocation.name,
+          gps: this.selectedCourse.startLocation.gps
+        },
+        endLocation: {
+          id: this.selectedCourse.endLocation.id,
+          name: this.selectedCourse.endLocation.name,
+          gps: this.selectedCourse.startLocation.gps
+        },
+        km: this.selectedCourse.km,
+        ratesType: {
+          id: 0,
+          ratesType: this.selectedCourse.ratesType.ratesType,
+          amount: this.selectedCourse.ratesType.amount
+        }
+      },
+      date: formattedDate,
+      state: 'Richiesta'
+    };
+  
+    this.ts.createRequest(body).subscribe(
+      x => {
+        console.log(x);
+        this.formsReset();
+        this.payment = true;
+        setTimeout(() => {
+          this.payment = false;
+        }, 3000);
+      },
+      error => {
+        console.error('Errore nella chiamata API:', error);
+      }
+    );
   }
+  
+  
+  
+
+  
 
 
 

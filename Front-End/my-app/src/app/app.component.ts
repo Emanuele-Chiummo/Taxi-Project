@@ -3,7 +3,9 @@ import { TaxiServicesService } from './services/taxi-services.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './services/auth-service.service';
+
 import { log } from 'console';
+import { UserServiceService } from './services/user-service.service';
 
 
 
@@ -44,7 +46,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
-    private el: ElementRef) { }
+    private el: ElementRef,
+    private userService: UserServiceService) { }
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('logged') !== null) {
@@ -103,6 +106,7 @@ export class AppComponent implements OnInit {
     this.authService.authenticate(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       data => {
         if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('currentUser', JSON.stringify(data));
           localStorage.setItem('Nome', data.name + ' ' + data.lastName);
           localStorage.setItem('logged', 'logged');
           localStorage.setItem('role', data.userType);
