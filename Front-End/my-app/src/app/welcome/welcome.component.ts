@@ -53,7 +53,6 @@ export class WelcomeComponent implements OnInit {
       this.admin = false
       this.cliente = true
       this.tassista = false
-      console.log('yes', this.cliente);
     } else if (localStorage.getItem('role') === 'tassista') {
       this.admin = false
       this.cliente = false
@@ -89,7 +88,6 @@ export class WelcomeComponent implements OnInit {
   prenota() {
     // Implementa la logica di prenotazione qui
     // Esempio: Puoi emettere un evento, chiamare un servizio, ecc.
-    // console.log('Dettagli della prenotazione:', this.richiesteForm.value);
   }
 
   CourseMethod() {
@@ -110,10 +108,8 @@ export class WelcomeComponent implements OnInit {
     this.ts.getAllRequest().subscribe(
       x => {
         this.request = x;
-        console.log('Risposta alla chiamata getAllRequest:', x);
       },
       error => {
-        console.error('Errore nella chiamata getAllRequest:', error);
       }
     );
   }
@@ -121,11 +117,9 @@ export class WelcomeComponent implements OnInit {
   updateRequest(requestId: number, updatedRequest: any): void {
     this.ts.updateRequest(requestId, updatedRequest).subscribe(
       (response) => {
-        console.log('Aggiornamento riuscito:', response);
         // Puoi aggiornare la tua tabella o eseguire altre azioni dopo l'aggiornamento
       },
       (error) => {
-        console.error('Errore durante l\'aggiornamento:', error);
         // Gestisci l'errore come preferisci
       }
     );

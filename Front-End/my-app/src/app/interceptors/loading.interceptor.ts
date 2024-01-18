@@ -12,15 +12,17 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoaderService, private router: Router) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log(request);
+
     this.totalRequests++;
     this.loadingService.setLoading(true);
 
     return next.handle(request).pipe(
+      
       tap(event => {
-        // Successful responses can be handled here if needed
+
       }),
       catchError((error: HttpErrorResponse) => {
-        // If a 401 Unauthorized response is received, redirect to the login page
         if (error.status === 401) {
           this.router.navigate(['/']);
         }

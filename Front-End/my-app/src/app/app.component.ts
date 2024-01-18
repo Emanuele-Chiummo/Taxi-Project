@@ -47,6 +47,8 @@ export class AppComponent implements OnInit {
     private el: ElementRef) { }
 
   ngOnInit(): void {
+    
+    
     if (typeof localStorage !== 'undefined' && localStorage.getItem('logged') !== null) {
       this.logged = localStorage.getItem('logged');
     } else {
