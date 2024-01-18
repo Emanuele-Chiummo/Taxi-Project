@@ -47,8 +47,6 @@ export class AppComponent implements OnInit {
     private el: ElementRef) { }
 
   ngOnInit(): void {
-    
-    
     if (typeof localStorage !== 'undefined' && localStorage.getItem('logged') !== null) {
       this.logged = localStorage.getItem('logged');
     } else {
@@ -132,24 +130,6 @@ export class AppComponent implements OnInit {
     }
 
   }
-
-  chiudiModale(): void {
-    this.$('#login').modal('hide');
-
-  }
-
-  toggleNavbar() {
-    this.isNavbarOpen = !this.isNavbarOpen;
-    if (!this.isNavbarOpen) {
-      this.rimuoviClasseShow()
-    }
-  }
-
-  rimuoviClasseShow() {
-    const elemento = this.el.nativeElement;
-    elemento.classList.remove('show');
-  }
-
   
 
 }

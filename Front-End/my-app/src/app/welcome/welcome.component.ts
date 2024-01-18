@@ -13,6 +13,7 @@ import { log } from 'console';
 export class WelcomeComponent implements OnInit {
   @ViewChild('richiesteModal') richiesteModal!: ElementRef;
   richiesteForm: FormGroup;
+  paymentForm: FormGroup;
 
   admin: any = false
   cliente: any = false
@@ -21,17 +22,24 @@ export class WelcomeComponent implements OnInit {
   request: any[] = []
   taxi: any[] = []
   combinedOptions: { value: number, label: string }[] = [];
-  destinations: any[] = []
+  destinations: { destination: any, rate: number }[] = []
 
   detTaxi: any[] = []
   detRequest: any[] = []
   clienteNome: any;
   taxiService: any;
+  rate: any;
   constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,) {
     this.richiesteForm = this.fb.group({
       partenza_destinazione: ['', [Validators.required]],
       data: ['', [Validators.required]],
       ora: ['', [Validators.required]],
+    });
+    this.paymentForm = this.fb.group({
+      cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
+      expiryDate: [''],
+      cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
+      saveCardData: [false] 
     });
   }
 
@@ -66,9 +74,13 @@ export class WelcomeComponent implements OnInit {
 
       this.clienteNome = localStorage.getItem('Nome')
     }
-
   }
 
+formsReset(){
+  this.destinations = []
+  this.richiesteForm.reset()
+  this.paymentForm.reset()
+}
 
   getAlltaxi() {
     this.ts.getAllTaxi().subscribe(x => {
@@ -85,16 +97,17 @@ export class WelcomeComponent implements OnInit {
     this.detTaxi = []
   }
 
-  prenota() {
-    // Implementa la logica di prenotazione qui
-    // Esempio: Puoi emettere un evento, chiamare un servizio, ecc.
+  prenota(rate: number) {
+
   }
 
   CourseMethod() {
     this.ts.getAllDestinations().subscribe(
       response => {
         response.forEach((element: any) => {
-          this.destinations.push(element.startLocation.name + ' - ' + element.endLocation.name)
+          console.log(element);
+
+          this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
         });
 
       },
@@ -143,11 +156,18 @@ export class WelcomeComponent implements OnInit {
   }
 
 
-
+  onChangeSelect(event: Event) {
+    this.rate = this.richiesteForm.controls['partenza_destinazione'].value
+  }
 
 
   dettaglioRequest(request: any) {
     this.detTaxi.push(request)
+  }
+
+
+  paga(){
+    this.formsReset()
   }
 
 

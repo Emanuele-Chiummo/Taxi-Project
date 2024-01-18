@@ -33,7 +33,8 @@ td {
 }
 
 
-td, th {
+td,
+th {
   outline: 1px solid #212529;
 }
 
@@ -44,7 +45,7 @@ td, th {
 }
 
 .actions :hover {
- transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 
@@ -131,4 +132,21 @@ h4 {
 .btn-group .btn svg {
   width: 1em;
   height: 1em;
+}
+
+
+.form-check-input:checked {
+  background-color: #ffcc00;
+  border-color: black;
+}
+
+
+.form-check-input:checked::before {
+  background-color: black;
+  border-color: black;
+}
+
+.form-check-input:checked::after {
+  background-color: black;
+  border-color: black;
 }
