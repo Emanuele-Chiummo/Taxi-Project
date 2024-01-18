@@ -33,7 +33,7 @@ CREATE TABLE `requests` (
   KEY `FK_requests_taxi_idx` (`taxi_id`),
   CONSTRAINT `FK_requests_courses` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   CONSTRAINT `FK_requests_taxi` FOREIGN KEY (`taxi_id`) REFERENCES `taxi` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-INSERT INTO `requests` VALUES (1,6,8,'2024-01-10 00:00:00','Accettata');
+INSERT INTO `requests` VALUES (1,6,8,'2024-01-10 00:00:00','Accettata'),(8,6,NULL,'2024-01-18 00:00:00','Rifiutata'),(9,6,NULL,'2024-01-19 00:00:00','Rifiutata'),(10,6,NULL,'2024-01-18 00:00:00','Richiesta');
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-17 22:27:31
+-- Dump completed on 2024-01-18 20:38:19

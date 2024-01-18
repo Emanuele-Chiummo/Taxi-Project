@@ -27,7 +27,7 @@ CREATE TABLE `locations` (
   `name` varchar(45) NOT NULL,
   `gps` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (11,'Piazza Garibaldi','23.4567,89.1011'),(12,'Via Toledo','12.3456,78.9101'),(13,'Piazza Plebiscito','123456.85.91011'),(14,'Piazza Dante','1234.5678.9088');
+INSERT INTO `locations` VALUES (11,'Piazza Garibaldi','12.3456,78.9101'),(12,'Via Toledo','12.3456,78.9101'),(13,'Piazza Plebiscito','123456.85.91011'),(14,'Piazza Dante','1234.5678.9088');
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-17 22:27:31
+-- Dump completed on 2024-01-18 20:38:19
