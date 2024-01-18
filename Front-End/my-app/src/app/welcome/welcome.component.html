@@ -1,112 +1,119 @@
-<div *ngIf="admin == true" style="color: gold;">
-    ciao admin
-    <div class="container mt-5">
-        <h2 style="color: gold;">Tabella Utenti</h2>
-        <table class="table table-bordered table-yellow" style="width: 60em;">
-            <thead>
-                <tr>
-                    <th>
-                        <button class="btn btn-success">Aggiungi Taxi</button>
-                    </th>
-                    <th>Nome</th>
-                    <th>Identificativo</th>
-                    <th>Email</th>
-                    <th>Telefono</th>
-                    <th>Codice Fiscale</th>
+<div *ngIf="admin == true">
+  ciao admin
+  <div class="container mt-5">
+    <h2>Tabella Utenti</h2>
+    <table class="table table-bordered table-yellow" style="width: 60em;">
+      <thead>
+        <tr class="table-dark">
+          <th>
+            <button class="btn btn-warning" style="font-weight: 600;">Aggiungi Taxi</button>
+          </th>
+          <th>Nome</th>
+          <th>Identificativo</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Codice Fiscale</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let t of taxi">
-                    <td><button class="btn btn-warning" (click)="dettaglioTaxi(t)" data-bs-toggle="modal"
-                            data-bs-target="#dettaglio">Visualizza dettaglio</button>
-                    </td>
-                    <td>{{t.driver.name + ' ' + t.driver.lastName}}</td>
-                    <td>{{t.identifier}}</td>
-                    <td>{{t.driver.email}}</td>
-                    <td>{{t.driver.mobilePhone}}</td>
-                    <td>{{t.driver.fiscalCode}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of taxi">
+          <td><button class="btn btn-light" (click)="dettaglioTaxi(t)" data-bs-toggle="modal"
+              data-bs-target="#dettaglio">Visualizza dettaglio</button>
+          </td>
+          <td>{{t.driver.name + ' ' + t.driver.lastName}}</td>
+          <td>{{t.identifier}}</td>
+          <td>{{t.driver.email}}</td>
+          <td>{{t.driver.mobilePhone}}</td>
+          <td>{{t.driver.fiscalCode}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
 </div>
 
 <div *ngIf="cliente == true" class="cliente-container">
-    <div class="jumbotron">
-      <h1 class="display-4">Ciao, {{clienteNome}}!</h1>
-      <p class="lead">(Introduzione al servizio taxi management)</p>
-      <hr class="my-4">
-      <p>Altro testo informativo.</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste" (click)="CourseMethod()">Prenota un taxi</a>
-      </p>
-    </div>
+  <div class="jumbotron">
+    <h1 class="display-4">Ciao, {{clienteNome}}!</h1>
+    <p class="lead">(Introduzione al servizio taxi management)</p>
+    <hr class="my-4">
+    <p>Altro testo informativo.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste"
+        (click)="CourseMethod()">Prenota un taxi</a>
+    </p>
   </div>
-  
-  
+</div>
+
+
 
 <div *ngIf="tassista == true">
 
   <h1 style="text-align: center;">CIAO</h1>
 
- 
-<button (click)="getAllRequest()" class="btn btn-primary">Carica Richieste</button>
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <table class="table table-bordered table-request" style="width: 60em;">
-        <thead>
-          <tr>
-            <th>ID Richiesta</th>
-            <th>Partenza</th>
-            <th>Destinazione</th>
-            <th>KM</th>
-            <th>Tipo Corsa</th>
-            <th>Prezzo</th>
-            <th>Utente</th>
-            <th>Numero di telefono</th>
-            <th>Data</th>
-            <th>Stato</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let r of request">
-            <td>{{ r.course.id }}</td>
-            <td>{{ r.course.startLocation.name }}</td>
-            <td>{{ r.course.endLocation.name }}</td>
-            <td>{{ r.course.km }}</td>
-            <td>{{ r.course.ratesType.ratesType }}</td>
-            <td>{{ r.course.ratesType.amount }}</td>
-            <td>{{ r.taxi.driver.name }}</td>
-            <td>{{ r.taxi.driver.mobilePhone }}</td>
-            <td>{{ r.date }}</td>
-            <td>{{ r.state }}</td>
-            <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-success btn-sm" (click)="acceptRequest(r.id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                    <path d="M6.742 12.742a1 1 0 0 1-1.415 0L2.322 9.322a1 1 0 1 1 1.415-1.415L6 10.585l6.263-6.263a1 1 0 1 1 1.415 1.415l-7 7z"/>
-                  </svg>
-                </button>
-                <!-- Pulsante per rifiutare la richiesta -->
-                <button type="button" class="btn btn-danger btn-sm" (click)="rejectRequest(r.id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                    <path d="M1 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm14-1a.5.5 0 0 1 .5.5v14a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5zM1 2a.5.5 0 0 1 .354.146L8 8.586l6.646-6.646a.5.5 0 1 1 .708.708L8.707 9.707a1 1 0 0 1-1.414 0L1.646 2.146A.5.5 0 0 1 2 1z"/>
-                  </svg>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <button (click)="getAllRequest()" class="btn btn-warning" style="font-weight: 600;">Aggiorna Richieste</button>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered rounded">
+          <thead class="table-dark">
+            <tr>
+              <th>ID Richiesta</th>
+              <th>Partenza</th>
+              <th>Destinazione</th>
+              <th>KM</th>
+              <th>Tipo Corsa</th>
+              <th>Prezzo</th>
+              <th>Utente</th>
+              <th>Numero di telefono</th>
+              <th>Data</th>
+              <th>Stato</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of request">
+              <td>{{ r.course.id }}</td>
+              <td>{{ r.course.startLocation.name }}</td>
+              <td>{{ r.course.endLocation.name }}</td>
+              <td>{{ r.course.km }}</td>
+              <td>{{ r.course.ratesType.ratesType }}</td>
+              <td>{{ r.course.ratesType.amount }}</td>
+              <td>{{ r.taxi.driver.name }}</td>
+              <td>{{ r.taxi.driver.mobilePhone }}</td>
+              <td>{{ r.date }}</td>
+              <td>{{ r.state }}</td>
+              <td>
+                <div class="btn-group">
+                  <button type="button" title="accetta" class="actions" (click)="acceptRequest(r.id)"
+                    *ngIf="r.state === 'Rifiutata' || r.state != 'Accettata'">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                      class="bi bi-check-lg" viewBox="0 0 16 16">
+                      <path
+                        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                    </svg>
+                  </button>
+                  <button type="button" title="rifiuta" class="actions" (click)="rejectRequest(r.id)"
+                    *ngIf="r.state === 'Accettata' || r.state != 'Rifiutata'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                      class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path
+                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
 
 
@@ -120,39 +127,40 @@
 
 
 <div class="modal fade" id="dettaglio" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" #loginModal>
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
-            <div class="modal-header bg-warning text-black">
-                <h5 class="modal-title">dettaglio </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDettaglio()"></button>
-            </div>
-            <div *ngFor="let dt of detTaxi" style="margin-left: 5%;">
-                <h6>id: {{dt.id}}</h6>
-                <h6>idendificativo: {{dt.identifier}}</h6>
-                <h6>id driver: {{dt.driver.id}}</h6>
-                <h6>nome: {{dt.driver.name + ' ' + dt.driver.lastName}}</h6>
-                <h6>cf: {{dt.driver.fiscalCode}}</h6>
-                <h6>tel: {{dt.driver.mobilePhone}}</h6>
-                <h6>email: {{dt.driver.email}}</h6>
-                <h6>ruolo: {{dt.driver.userType}}</h6>
-            </div>
-        </div>
-
+      <div class="modal-header bg-warning text-black">
+        <h5 class="modal-title">dettaglio </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeDettaglio()"></button>
+      </div>
+      <div *ngFor="let dt of detTaxi" style="margin-left: 5%;">
+        <h6>id: {{dt.id}}</h6>
+        <h6>idendificativo: {{dt.identifier}}</h6>
+        <h6>id driver: {{dt.driver.id}}</h6>
+        <h6>nome: {{dt.driver.name + ' ' + dt.driver.lastName}}</h6>
+        <h6>cf: {{dt.driver.fiscalCode}}</h6>
+        <h6>tel: {{dt.driver.mobilePhone}}</h6>
+        <h6>email: {{dt.driver.email}}</h6>
+        <h6>ruolo: {{dt.driver.userType}}</h6>
+      </div>
     </div>
+
+  </div>
 </div>
 
 <div class="modal fade" id="richieste" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" #richiesteModal>
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <!-- Form per la prenotazione -->
-        <form [formGroup]="richiesteForm">
-          <div class="modal-header bg-warning text-black">
-            <h5 class="modal-title">Prenota un taxi</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!--<div class="mb-3">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Form per la prenotazione -->
+      <form [formGroup]="richiesteForm">
+        <div class="modal-header bg-warning text-black">
+          <h5 class="modal-title">Prenota un taxi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!--<div class="mb-3">
               <label for="partenza" class="text-black">Partenza<span class="text-danger">*</span></label>
               <select formControlName="partenza" class="form-select" id="partenza">
                 <option *ngFor="let option of partenzaOptions" [value]="option.value">{{ option.label }}</option>
@@ -165,32 +173,34 @@
                 <option *ngFor="let option of destinazioneOptions" [value]="option.value">{{ option.label }}</option>
               </select>
             </div>-->
-            
-            <div class="mb-3">
-              <label for="partenza_destinazione" class="text-black">Seleziona la tratta<span class="text-danger">*</span></label>
-              <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione">
-                <option *ngFor="let option of destinations" [value]="option">{{ option }}</option>
-              </select>
-            </div>
-            
-            
-            
-            
 
-            <div class="mb-3">
-                <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
-                <input type="date" formControlName="data" class="form-control" id="data">
-              </div>
-    
-              <div class="mb-3">
-                <label for="ora" class="text-black">Ora<span class="text-danger">*</span></label>
-                <input type="time" formControlName="ora" class="form-control" id="ora">
-              </div>
+          <div class="mb-3">
+            <label for="partenza_destinazione" class="text-black">Seleziona la tratta<span
+                class="text-danger">*</span></label>
+            <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione">
+              <option *ngFor="let option of destinations" [value]="option">{{ option }}</option>
+            </select>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" (click)="prenota()" [disabled]="richiesteForm.invalid">Prenota</button>
+
+
+
+
+
+          <div class="mb-3">
+            <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
+            <input type="date" formControlName="data" class="form-control" id="data">
           </div>
-        </form>
-      </div>
+
+          <div class="mb-3">
+            <label for="ora" class="text-black">Ora<span class="text-danger">*</span></label>
+            <input type="time" formControlName="ora" class="form-control" id="ora">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" (click)="prenota()"
+            [disabled]="richiesteForm.invalid">Prenota</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>

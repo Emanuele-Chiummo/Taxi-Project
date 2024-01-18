@@ -58,6 +58,7 @@ export class WelcomeComponent implements OnInit {
       this.admin = false
       this.cliente = false
       this.tassista = true
+      this.getAllRequest()
     }
   }
 
@@ -131,16 +132,16 @@ export class WelcomeComponent implements OnInit {
   }
 
   acceptRequest(requestId: number): void {
-    
+
     const updatedRequest = this.request.find(r => r.id === requestId);
     updatedRequest.state = 'Accettata';
 
-   
+
     this.updateRequest(requestId, updatedRequest);
   }
 
   rejectRequest(requestId: number): void {
-    
+
     const updatedRequest = this.request.find(r => r.id === requestId);
     updatedRequest.state = 'Rifiutata';
 
@@ -148,8 +149,8 @@ export class WelcomeComponent implements OnInit {
   }
 
 
-  
-  
+
+
 
   dettaglioRequest(request: any) {
     this.detTaxi.push(request)
@@ -157,12 +158,12 @@ export class WelcomeComponent implements OnInit {
 
 
 
-  
-
-  
 
 
-  
+
+
+
+
 }
 
 
