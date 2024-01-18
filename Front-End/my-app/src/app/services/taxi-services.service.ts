@@ -36,4 +36,8 @@ export class TaxiServicesService {
   }
 
 
+  createRequest(body: any){
+    return this.http.post <any>('http://localhost:8080/api/request', body )
+  }
+
 }

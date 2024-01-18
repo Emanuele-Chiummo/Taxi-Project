@@ -140,13 +140,6 @@ h4 {
   border-color: black;
 }
 
-
-.form-check-input:checked::before {
-  background-color: black;
-  border-color: black;
-}
-
-.form-check-input:checked::after {
-  background-color: black;
-  border-color: black;
+.payment-cnt{
+   text-align: center;
 }

@@ -14,7 +14,8 @@ export class WelcomeComponent implements OnInit {
   @ViewChild('richiesteModal') richiesteModal!: ElementRef;
   richiesteForm: FormGroup;
   paymentForm: FormGroup;
-
+  data: any
+  ora: any
   admin: any = false
   cliente: any = false
   tassista: any = false
@@ -29,6 +30,8 @@ export class WelcomeComponent implements OnInit {
   clienteNome: any;
   taxiService: any;
   rate: any;
+  payment: boolean = false;
+  course: any;
   constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,) {
     this.richiesteForm = this.fb.group({
       partenza_destinazione: ['', [Validators.required]],
@@ -39,7 +42,7 @@ export class WelcomeComponent implements OnInit {
       cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
       expiryDate: [''],
       cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
-      saveCardData: [false] 
+      saveCardData: [false]
     });
   }
 
@@ -76,11 +79,13 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-formsReset(){
-  this.destinations = []
-  this.richiesteForm.reset()
-  this.paymentForm.reset()
-}
+  formsReset() {
+    this.destinations = []
+    this.richiesteForm.reset()
+    this.paymentForm.reset()
+  }
+
+
 
   getAlltaxi() {
     this.ts.getAllTaxi().subscribe(x => {
@@ -97,16 +102,12 @@ formsReset(){
     this.detTaxi = []
   }
 
-  prenota(rate: number) {
 
-  }
 
   CourseMethod() {
     this.ts.getAllDestinations().subscribe(
       response => {
         response.forEach((element: any) => {
-          console.log(element);
-
           this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
         });
 
@@ -157,7 +158,19 @@ formsReset(){
 
 
   onChangeSelect(event: Event) {
-    this.rate = this.richiesteForm.controls['partenza_destinazione'].value
+    const selectedValue = this.richiesteForm.controls['partenza_destinazione'].value.split('_');
+    this.course = selectedValue[1];
+    this.rate = selectedValue[0]
+  }
+
+  onChangeSelectD(event: Event) {
+    event = this.richiesteForm.controls['data'].value
+    this.data = event
+  }
+
+  onChangeSelectH(event: Event) {
+    event = this.richiesteForm.controls['ora'].value
+    this.ora = event
   }
 
 
@@ -166,9 +179,30 @@ formsReset(){
   }
 
 
-  paga(){
+  paga() {
     this.formsReset()
   }
+
+
+  paymentSuccess() {
+
+    
+    let body = {
+      course: this.course,
+      date: this.data + ' ' + this.ora + ':00',
+      state: ''
+    }
+    this.ts.createRequest(body).subscribe(x => {
+      console.log(x);
+      this.formsReset()
+      this.payment = true;
+      setTimeout(() => {
+        this.payment = false;
+      }, 3000);
+    })
+
+  }
+
 
 
 

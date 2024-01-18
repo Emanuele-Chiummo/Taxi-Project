@@ -31,7 +31,19 @@
   </div>
 </div>
 
+<div class="payment-cnt" *ngIf="payment">
+  <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="green" class="bi bi-patch-check-fill"
+    viewBox="0 0 16 16">
+    <path
+      d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+  </svg>
+  <h2>
+    Pagamento eseguito con successo, <br> grazie per aver scelto Crazy Taxi!
+  </h2>
+</div>
+
 <div *ngIf="cliente == true" class="cliente-container">
+    
   <div class="jumbotron">
     <h1 class="display-4">Ciao, {{clienteNome}}!</h1>
     <p class="lead">(Introduzione al servizio taxi management)</p>
@@ -47,12 +59,8 @@
 
 
 <div *ngIf="tassista == true">
-
   <h1 style="text-align: center;">CIAO</h1>
-
-
   <button (click)="getAllRequest()" class="btn btn-warning" style="font-weight: 600;">Aggiorna Richieste</button>
-
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -153,21 +161,21 @@
                 class="text-danger">*</span></label>
             <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione"
               (change)="onChangeSelect($event)">
-              <option *ngFor="let option of destinations" [value]="option.rate">{{ option.destination }}</option>
+              <option *ngFor="let option of destinations" [value]="option.rate + '_' + option.destination">{{ option.destination }}</option>
             </select>
           </div>
           <div class="mb-3">
             <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
-            <input type="date" formControlName="data" class="form-control" id="data">
+            <input type="date" formControlName="data" class="form-control" id="data"  (change)="onChangeSelectD($event)">
           </div>
           <div class="mb-3">
             <label for="ora" class="text-black">Ora<span class="text-danger">*</span></label>
-            <input type="time" formControlName="ora" class="form-control" id="ora">
+            <input type="time" formControlName="ora" class="form-control" id="ora"  (change)="onChangeSelectH($event)">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close"
-            (click)="formsReset()" [disabled]="richiesteForm.invalid"><a data-bs-toggle="modal"
+            (click)="formsReset()" (click)="paga()" [disabled]="richiesteForm.invalid"><a data-bs-toggle="modal"
               data-bs-target="#pay">Prenota</a></button>
         </div>
       </form>
@@ -181,7 +189,8 @@
     <div class="modal-content">
       <div class="modal-header bg-warning text-black">
         <h5 class="modal-title">Pagamento di: {{rate}}€</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="formsReset()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="formsReset()"></button>
       </div>
       <form [formGroup]="paymentForm" class="modal-body">
         <div class="mb-3">
@@ -202,9 +211,11 @@
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-warning" [disabled]="paymentForm.invalid" data-bs-dismiss="modal"
-            aria-label="Close" (click)="formsReset()">Effettua il pagamento</button>
+            aria-label="Close" (click)="paymentSuccess()">Effettua il pagamento</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+
