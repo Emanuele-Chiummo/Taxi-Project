@@ -41,7 +41,7 @@ th {
 .actions {
   border-color: transparent;
   background-color: transparent;
-  margin-left: 10%;
+  /* margin-left: 5%; */
 }
 
 .actions :hover {

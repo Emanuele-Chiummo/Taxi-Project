@@ -11,6 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     HomeComponent,
     WelcomeComponent,
     SpinnerComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

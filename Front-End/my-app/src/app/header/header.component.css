@@ -1,0 +1,72 @@
+.gradient-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #333; */
+  }
+  
+  .navbar {
+    width: 100%;
+    border-bottom: 5px solid #000000;
+    background-color: #ffcc00;
+  }
+  
+
+  .navbar-nav{
+    gap: 15%;
+    width: 100%;
+   
+  }
+  
+  li{
+    text-wrap: nowrap;
+  }
+  
+  #logout :hover {
+  fill: rgb(210, 33, 33);}
+  
+  .modal-content {
+    border-radius: 15px;
+  }
+  
+  .modal-button {
+    background-color: transparent;
+    border-color: transparent;
+  }
+  
+  .text-dark :hover {
+    cursor: pointer !important;
+    transform: scale(1.2) !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  
+  .navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 30px;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    transform: scale(1.2);
+    font-weight: 600;
+  }
+  
+  .logout {
+    margin-right: 2%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .logout :hover {
+    cursor: pointer;
+    fill: red;
+  }
+  
+  .header-img {
+    margin-right: 25%;
+    width: 120px;
+    height: 120px;
+  }
+  

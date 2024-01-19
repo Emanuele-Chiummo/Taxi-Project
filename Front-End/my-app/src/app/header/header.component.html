@@ -1,0 +1,140 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <img class="header-img nav-link" src="assets/logo.png" alt="Logo" />
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" [attr.aria-expanded]="isNavbarExpanded ? 'true' : 'false'"
+        aria-label="Toggle navigation" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+        <ul class="navbar-nav">
+ 
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="#">Servizio Clienti</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="#">Chi Siamo</a>
+            </li>
+            <li class="nav-item" *ngIf="logged === ''" data-bs-toggle="modal" data-bs-target="#login">
+                <a class="nav-link text-dark" style="cursor: pointer;">Login</a>
+            </li>
+            <li class="nav-item" *ngIf="logged === 'logged'">
+                <a class="nav-link"> <button id="logout" class="btn btn-danger " (click)="logout()"
+                        *ngIf="logged === 'logged'" title="logout"
+                        style="border-color: transparent; background-color: transparent;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black"
+                            class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                        </svg></button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="gradient-background">
+    <div class="alert alert-danger" role="alert" *ngIf="error" style="left: 43em;
+    top: 2.5em;
+    width: 25%;
+    position: absolute;
+    display: flex;
+    font-size: 30px;
+    justify-content: center;">
+        {{errorMsg}}
+    </div>
+
+    <!-- Modal Form sign up -->
+    <!-- Modal Form signup -->
+<div class="modal fade" id="signup" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!--Signup Form -->
+            <div class="modal-header bg-warning text-black">
+                <h5 class="modal-title">Sign up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="signUpForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="Nome" class="text-black">Nome<span class="text-danger">*</span></label>
+                        <input type="text" formControlName="nome" class="form-control" id="Nome"
+                            placeholder="Enter Nome">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Cognome" class="text-black">Cognome<span class="text-danger">*</span></label>
+                        <input type="text" formControlName="cognome" class="form-control" id="Cognome"
+                            placeholder="Enter Cognome">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Email" class="text-black">Email<span class="text-danger">*</span></label>
+                        <input type="email" formControlName="email" class="form-control" id="Email"
+                            placeholder="Enter Email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Password" class="text-black">Password<span class="text-danger">*</span></label>
+                        <input type="password" formControlName="password" class="form-control" id="Password"
+                            placeholder="Enter Password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Telefono" class="text-black">Telefono<span class="text-danger">*</span></label>
+                        <input type="tel" formControlName="telefono" class="form-control" id="Telefono"
+                            placeholder="Enter Telefono">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CodiceFiscale" class="text-black">Codice Fiscale<span
+                                class="text-danger">*</span></label>
+                        <input type="text" formControlName="codiceFiscale" class="form-control" id="CodiceFiscale"
+                            placeholder="Enter Codice Fiscale">
+                    </div>
+                </div>
+                <div class="modal-footer pt-4 bg-warning d-flex">
+                    <button type="submit" class="btn btn-dark mx-auto w-100" [disabled]="signUpForm.invalid"
+                        (click)="signUp()">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Form login-->
+<div class="modal fade" id="login" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Login Form -->
+            <form [formGroup]="loginForm">
+                <div class="modal-header bg-warning text-black">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="Username" class="text-black">Username<span class="text-danger">*</span></label>
+                        <input type="text" formControlName="username" class="form-control" id="Username"
+                            placeholder="Enter Username">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Password" class="text-black">Password<span class="text-danger">*</span></label>
+                        <input type="password" formControlName="password" class="form-control" id="Password"
+                            placeholder="Enter Password">
+                    </div>
+                </div>
+                <div class="modal-footer pt-4 bg-warning d-flex">
+                    <p class="text-center text-black">Not yet account,
+                        <button data-bs-dismiss="modal" aria-label="Close"
+                            style="background-color: transparent; border-color: transparent; cursor: pointer;">
+                            <a class="text-dark" style="text-decoration: underline;" data-bs-toggle="modal"
+                                data-bs-target="#signup">Sign up</a>
+                        </button>
+                    </p>
+                    <button type="button" class="btn btn-dark mx-auto w-100" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="login()" [disabled]="loginForm.invalid">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
