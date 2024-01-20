@@ -121,19 +121,21 @@
   
   @media (max-width: 992px) {
     #hero {
-      height: auto;
+        height: auto;
+        z-index: 1; /* Add this line */
     }
-  
+
     #hero h1 {
-      font-size: 28px;
-      line-height: 36px;
+        font-size: 28px;
+        line-height: 36px;
     }
-  
+
     #hero h2 {
-      font-size: 18px;
-      line-height: 24px;
+        font-size: 18px;
+        line-height: 24px;
     }
-  }
+}
+
 
   
 

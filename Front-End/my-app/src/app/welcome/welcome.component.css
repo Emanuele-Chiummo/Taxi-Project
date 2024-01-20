@@ -1,3 +1,12 @@
+.gradient-background {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333; 
+}
+
+
 .table-yellow {
   background-color: #FFEB3B;
   /* Giallo */
