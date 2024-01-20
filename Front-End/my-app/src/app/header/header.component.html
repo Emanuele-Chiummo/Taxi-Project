@@ -1,21 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <img class="header-img nav-link" src="assets/logo.png" alt="Logo" />
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" [attr.aria-expanded]="isNavbarExpanded ? 'true' : 'false'"
-        aria-label="Toggle navigation" (click)="toggleNavbar()">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+    <button class="navbar-toggler" type="button" 
+    aria-controls="navbarNav" 
+    [attr.aria-expanded]="isNavbarExpanded ? 'true' : 'false'" 
+    aria-label="Toggle navigation" 
+    (click)="toggleNavbar()">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+    <div class="collapse navbar-collapse justify-content-start" [ngClass]="{'show': isNavbarExpanded}"  id="navbarNav" #navbar>
         <ul class="navbar-nav">
  
             <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Servizio Clienti</a>
+                <a class="nav-link text-dark" href="#" (click)="closeNavbar()">Servizio Clienti</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Chi Siamo</a>
+                <a class="nav-link text-dark" href="#" (click)="closeNavbar()">Chi Siamo</a>
             </li>
             <li class="nav-item" *ngIf="logged === ''" data-bs-toggle="modal" data-bs-target="#login">
-                <a class="nav-link text-dark" style="cursor: pointer;">Login</a>
+                <a class="nav-link text-dark" style="cursor: pointer;" (click)="closeNavbar()">Login</a>
             </li>
             <li class="nav-item" *ngIf="logged === 'logged'">
                 <a class="nav-link"> <button id="logout" class="btn btn-danger " (click)="logout()"
@@ -32,13 +35,7 @@
 </nav>
 
 <div class="gradient-background">
-    <div class="alert alert-danger" role="alert" *ngIf="error" style="left: 43em;
-    top: 2.5em;
-    width: 25%;
-    position: absolute;
-    display: flex;
-    font-size: 30px;
-    justify-content: center;">
+    <div class="alert alert-danger" role="alert" *ngIf="error">
         {{errorMsg}}
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service.service';
@@ -11,6 +11,11 @@ import { UserServiceService } from '../services/user-service.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  isNavbarExpanded = false;
+  @ViewChild('navbar') navbar: ElementRef | undefined;
+
+
   role!: any
   name!: any
   logged: any = '';
@@ -29,7 +34,6 @@ export class HeaderComponent {
     telefono: new FormControl()
   });
 
-  isNavbarExpanded = false;
 
   constructor(private taxiService: TaxiServicesService,
     private router: Router,
@@ -60,6 +64,12 @@ export class HeaderComponent {
   toggleNavbar() {
     this.isNavbarExpanded = !this.isNavbarExpanded;
   }
+
+  closeNavbar() {
+    this.isNavbarExpanded = false;
+  }
+  
+  
 
   signUpFormInit() {
     this.signUpForm = this.fb.group({
