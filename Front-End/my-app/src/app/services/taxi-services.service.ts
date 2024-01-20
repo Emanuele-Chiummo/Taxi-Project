@@ -14,8 +14,15 @@ export class TaxiServicesService {
 
   getAllTaxi(): Observable <any>{
     return this.http.get <any>('http://localhost:8080/api/taxi') 
-
   }
+
+  getTaxiIdByDriverId(driverId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8080//api/taxi/` + driverId);
+}
+
+getTaxiById(taxiId: number): Observable<number> {
+  return this.http.get<number>('http://localhost:8080/api/taxi/id/' + taxiId);
+}
 
   postTaxi(body: any): Observable <any>{
     return this.http.post <any>('http://localhost:8080/api/taxi', body ) 
@@ -39,6 +46,7 @@ export class TaxiServicesService {
   createRequest(body: any){
     return this.http.post <any>('http://localhost:8080/api/request', body )
   }
+
 
   
 

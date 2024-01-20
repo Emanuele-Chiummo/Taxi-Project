@@ -2,6 +2,7 @@ package it.parthenope.taxi.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,23 @@ public class TaxiServiceImpl implements TaxiService {
 		
 		return allTaxiDto;
 	}
+	
+	@Override
+    public Integer getTaxiIdByDriverId(Integer driverId) {
+        Optional<Taxi> taxiOptional = taxiRepository.findByDriverId(driverId);
+
+        if (taxiOptional.isPresent()) {
+            return taxiOptional.get().getId();
+        } else {
+           
+            return null;
+        }
+    }
+	
+    @Override
+    public TaxiDto getTaxiById(Integer taxiId) {
+        Optional<Taxi> taxiOptional = taxiRepository.findById(taxiId);
+        return taxiOptional.map(taxiMapper::modelToDto).orElse(null);
+    }
 
 }

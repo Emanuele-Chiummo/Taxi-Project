@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +35,32 @@ public class TaxiController {
 		
 		return taxiService.getAllTaxi();
 	}
+	
+	
+	@GetMapping("/api/taxi/{driverId}")
+    public ResponseEntity<Integer> getTaxiIdByDriverId(@PathVariable Integer driverId) {
+
+		Integer taxiId = taxiService.getTaxiIdByDriverId(driverId);
+
+        if (taxiId != null) {
+            return new ResponseEntity<>(taxiId, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+	
+	@GetMapping("/api/taxi/id/{taxiId}")
+	public ResponseEntity<TaxiDto> getTaxiById(@PathVariable Integer taxiId) {
+	    TaxiDto taxiDto = taxiService.getTaxiById(taxiId);
+
+	    if (taxiDto != null) {
+	        return new ResponseEntity<>(taxiDto, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	
+
 
 }

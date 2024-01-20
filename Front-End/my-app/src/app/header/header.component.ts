@@ -103,7 +103,7 @@ export class HeaderComponent {
     this.authService.authenticate(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       data => {
         if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('currentUser', JSON.stringify(data));
+          localStorage.setItem('currentUser', data.id);
           localStorage.setItem('Nome', data.name + ' ' + data.lastName);
           localStorage.setItem('logged', 'logged');
           localStorage.setItem('role', data.userType);

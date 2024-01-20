@@ -43,7 +43,18 @@
 </div>
 
 <div *ngIf="cliente == true" class="cliente-container">
-    
+
+  <!--<section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
+          <h1>TaxiToGo</h1>
+          <h2>Il servizio taxi più premiato di Italia</h2>
+        </div>
+      </div>
+    </div>
+  </section>-->
+
   <div class="jumbotron">
     <h1 class="display-4">Ciao, {{clienteNome}}!</h1>
     <p class="lead">(Introduzione al servizio taxi management)</p>
@@ -59,8 +70,10 @@
 
 
 <div *ngIf="tassista == true">
-  <h1 style="text-align: center;">CIAO</h1>
-  <button (click)="getAllRequest()" class="btn btn-warning" style="font-weight: 600;">Aggiorna Richieste</button>
+  <h1 style="text-align: center; color: #fff;">Ciao, {{clienteNome}}</h1>
+  <button (click)="getAllRequest()" class="btn btn-warning" style="font-weight: 600; margin-right: 10px;">Tutte le Richieste</button>
+  <button (click)="getAllRequest()" class="btn btn-warning" style="font-weight: 600; margin-top: 2px;">Le Mie Richieste</button>
+  <button (click)="getTaxiIdByDriverId()">Ottieni Taxi ID</button>
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -161,16 +174,17 @@
                 class="text-danger">*</span></label>
             <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione"
               (change)="onChangeSelect($event)">
-              <option *ngFor="let option of destinations" [value]="option.rate + '_' + option.destination">{{ option.destination }}</option>
+              <option *ngFor="let option of destinations" [value]="option.rate + '_' + option.destination">{{
+                option.destination }}</option>
             </select>
           </div>
           <div class="mb-3">
             <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
-            <input type="date" formControlName="data" class="form-control" id="data"  (change)="onChangeSelectD($event)">
+            <input type="date" formControlName="data" class="form-control" id="data" (change)="onChangeSelectD($event)">
           </div>
           <div class="mb-3">
             <label for="ora" class="text-black">Ora<span class="text-danger">*</span></label>
-            <input type="time" formControlName="ora" class="form-control" id="ora"  (change)="onChangeSelectH($event)">
+            <input type="time" formControlName="ora" class="form-control" id="ora" (change)="onChangeSelectH($event)">
           </div>
         </div>
         <div class="modal-footer">
@@ -217,5 +231,3 @@
     </div>
   </div>
 </div>
-
-

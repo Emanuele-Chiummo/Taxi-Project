@@ -12,5 +12,11 @@ public interface TaxiService {
 	TaxiDto createTaxi(TaxiDto taxiDto);
 
 	List<TaxiDto> getAllTaxi();
+	
+	 Integer getTaxiIdByDriverId(Integer driverId);
+	 
+	 TaxiDto getTaxiById(Integer taxiId);
+	 
+	 
 
 }
