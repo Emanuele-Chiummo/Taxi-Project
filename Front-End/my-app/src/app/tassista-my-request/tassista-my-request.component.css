@@ -24,10 +24,24 @@ table caption {
     margin: .5em 0 .75em;
 }
 
+table th{
+    background-color: #ffc20f;
+    color: #000;
+    padding: .625em;
+    text-align: center;
+
+}
+
 table tr {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: .35em;
+}
+
+
+
+table tr:nth-child(even) {
+    background-color: #f5f5f5;
 }
 
 table th,
@@ -41,6 +55,35 @@ table th {
     letter-spacing: .1em;
     text-transform: uppercase;
 }
+
+/* Aggiungi stile ai bottoni di accettazione */
+button.accept {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color:#4cae4c;
+}
+
+/* Cambia colore di sfondo al passaggio del mouse per accettazione */
+button.accept:hover {
+    background-color: #4cae4c;
+    color:#fff;
+}
+
+/* Aggiungi stile ai bottoni di rifiuto */
+button.reject {
+    background: none;
+    color: #d9534f;
+    border: none;
+    box-shadow: none;
+}
+
+/* Cambia colore di sfondo al passaggio del mouse per rifiuto */
+button.reject:hover {
+    background-color: #c9302c;
+    color:#fff;
+}
+
 
 @media screen and (max-width: 600px) {
 
