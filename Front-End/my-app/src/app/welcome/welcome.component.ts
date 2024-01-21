@@ -50,6 +50,8 @@ export class WelcomeComponent implements OnInit {
 
   idUser: any[] = []
 
+  showAllRequests: boolean = true;
+
   detTaxi: any[] = []
   detRequest: any[] = []
   clienteNome: any;
@@ -165,44 +167,35 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  getTaxiIdByDriverId(): void {
-    const driverId = localStorage.getItem('currentUser');
-  
-    if (driverId && !isNaN(Number(driverId))) {
-      // Verifica che driverId sia presente nel localStorage e sia un numero valido
-      const numericDriverId = Number(driverId);
 
-      console.log('Driver ID:', numericDriverId);
-  
-      this.ts.getTaxiIdByDriverId(numericDriverId).subscribe(
-        (response) => {
-          console.log('Taxi ID response:', response);
-          localStorage.setItem('taxiId', response.toString());
-  
-          if (response !== null && response !== undefined) {
-            // Aggiungi ulteriori operazioni se necessario
-            this.taxi_id = response;
-          } else {
-            console.error('Taxi ID is null or undefined');
-          }
-        },
-        (error) => {
-          console.error('Error retrieving Taxi ID:', error);
-        }
-      );
-    } else {
-      console.log('Driver ID not found or invalid in local storage');
-    }
-  }
   
 
   getAllRequest() {
     console.log(this.cliente);
     this.ts.getAllRequest().subscribe(
       x => {
-        this.request = x;
+        this.request = x.filter((r: any) => r.state === 'Richiesta');
       },
       error => {
+      }
+    );
+  }
+
+  getMyRequests() {
+    const taxiId = localStorage.getItem('taxiId');
+  
+    if (!taxiId) {
+      console.error('taxiId non presente in localStorage');
+      return;
+    }
+  
+    this.ts.getAllRequest().subscribe(
+      x => {
+        // Filtra solo le richieste in stato "Richiesta" e con taxi definito
+        this.request = x.filter((r: any) => r.state === 'Accettata' && r.taxi && r.taxi.id === Number(taxiId));
+      },
+      error => {
+        // Gestisci gli errori
       }
     );
   }
