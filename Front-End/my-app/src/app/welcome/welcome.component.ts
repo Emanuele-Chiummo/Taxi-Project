@@ -186,77 +186,7 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  getMyRequests() {
-    const taxiId = localStorage.getItem('taxiId');
-  
-    if (!taxiId) {
-      console.error('taxiId non presente in localStorage');
-      return;
-    }
-  
-    this.ts.getAllRequest().subscribe(
-      x => {
-        // Filtra solo le richieste in stato "Richiesta" e con taxi definito
-        this.request = x.filter((r: any) => r.state === 'Accettata' && r.taxi && r.taxi.id === Number(taxiId));
-      },
-      error => {
-        // Gestisci gli errori
-      }
-    );
-  }
-
-  updateRequest(requestId: number, updatedRequest: any): void {
-      this.ts.updateRequest(requestId, updatedRequest).subscribe(
-        (response) => {
-          // Puoi aggiornare la tua tabella o eseguire altre azioni dopo l'aggiornamento
-        },
-        (error) => {
-          // Gestisci l'errore come preferisci
-        }
-      );
-  }
-
-
-  acceptRequest(requestId: number): void {
-    const updatedRequest = this.request.find(r => r.id === requestId);
-  
-    // Leggi taxiId dal localStorage
-    const taxiId = localStorage.getItem('taxiId');
-  
-    if (!taxiId) {
-      console.error('taxiId non presente in localStorage');
-      return;
-    }
-  
-    // Chiamata al servizio per ottenere le informazioni sul taxi
-    this.ts.getTaxiById(Number(taxiId)).subscribe(
-      (taxiInfo) => {
-        // Aggiornamento delle informazioni nel request
-        updatedRequest.taxi = {
-          id: taxiInfo.id,  
-          identifier: taxiInfo.identifier,
-          driver: taxiInfo.driver
-        };
-        updatedRequest.state = 'Accettata';
-  
-        // Chiamata al servizio per aggiornare la richiesta sul server
-        this.updateRequest(updatedRequest.id, updatedRequest);
-      },
-      (error) => {
-        console.error('Errore durante la chiamata a getTaxiById', error);
-      }
-    );
-  }
-
-  rejectRequest(requestId: number): void {
-
-    const updatedRequest = this.request.find(r => r.id === requestId);
-    updatedRequest.state = 'Rifiutata';
-
-    this.updateRequest(requestId, updatedRequest);
-  }
-
-    onChangeSelect(event: Event) {
+  onChangeSelect(event: Event) {
     const selectedValue = this.richiesteForm.controls['partenza_destinazione'].value.split('_');
     this.course = selectedValue[1];
     this.rate = selectedValue[0]
@@ -277,6 +207,7 @@ export class WelcomeComponent implements OnInit {
     this.detTaxi.push(request)
   }
 
+  
 
   paga() {
     this.formsReset()
@@ -345,6 +276,14 @@ export class WelcomeComponent implements OnInit {
 
   navigateToAnalyticsPage() {
     this.router.navigate(['/analytics']);
+  }
+
+  navigateToPendingRequestPage() {
+    this.router.navigate(['/pending-request']);
+  }
+
+  navigateToMyRequestPage() {
+    this.router.navigate(['/my-request']);
   }
 
 

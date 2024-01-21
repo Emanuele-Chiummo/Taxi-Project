@@ -16,6 +16,8 @@ import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminCourseComponent } from './admin-course/admin-course.component';
 import { AdminTaxiComponent } from './admin-taxi/admin-taxi.component';
 import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.component';
+import { TassistaPendingRequestComponent } from './tassista-pending-request/tassista-pending-request.component';
+import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-request.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.compo
     AdminCourseComponent,
     AdminTaxiComponent,
     AdminAnalyticsComponent,
+    TassistaPendingRequestComponent,
+    TassistaMyRequestComponent,
   ],
   imports: [
     BrowserModule,

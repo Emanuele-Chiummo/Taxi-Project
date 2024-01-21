@@ -2,6 +2,7 @@ package it.parthenope.taxi.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,22 @@ public class RequestServiceImpl implements RequestService{
     public void updateRequest(RequestDto requestDto) {
         Request request = requestMapper.dtoToModel(requestDto);
         requestRepository.save(request);
+    }
+    
+    @Override
+    public List<RequestDto> getAllRequestByState(String state) {
+        List<Request> requestsByState = requestRepository.findByState(state);
+        return requestsByState.stream()
+            .map(requestMapper::modelToDto)
+            .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<RequestDto> getMyRequests(Long taxiId) {
+        List<Request> acceptedRequestsForTaxi = requestRepository.findByStateAndTaxiId("Accettata", taxiId);
+        return acceptedRequestsForTaxi.stream()
+                .map(requestMapper::modelToDto)
+                .collect(Collectors.toList());
     }
     
 

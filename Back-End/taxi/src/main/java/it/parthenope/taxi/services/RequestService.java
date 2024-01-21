@@ -17,6 +17,13 @@ public interface RequestService {
 
 	void updateRequest(RequestDto requestDto);
 
+	List<RequestDto> getAllRequestByState(String string);
+
+	List<RequestDto> getAllRequestByStateAccepted(String string);
+
+	List<RequestDto> getMyRequests(Long taxiId);
+
+
     
     
 }

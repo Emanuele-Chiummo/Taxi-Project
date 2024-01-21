@@ -9,6 +9,8 @@ import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminCourseComponent } from './admin-course/admin-course.component';
 import { AdminTaxiComponent } from './admin-taxi/admin-taxi.component';
 import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.component';
+import { TassistaPendingRequestComponent } from './tassista-pending-request/tassista-pending-request.component';
+import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-request.component';
 
 const routes : Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +20,8 @@ const routes : Routes = [
   {path: 'course', component: AdminCourseComponent, canActivate : [RouteGuardService]},
   {path: 'taxi', component: AdminTaxiComponent, canActivate : [RouteGuardService]},
   {path:'analytics', component: AdminAnalyticsComponent, canActivate : [RouteGuardService]},
+  {path: 'pending-request', component: TassistaPendingRequestComponent, canActivate : [RouteGuardService]},
+  {path: 'my-request', component: TassistaMyRequestComponent, canActivate : [RouteGuardService]},
  
 ];
 

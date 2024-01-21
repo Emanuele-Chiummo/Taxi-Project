@@ -37,6 +37,14 @@ getTaxiById(taxiId: any): Observable<any> {
     return this.http.get <any>('http://localhost:8080/api/request')
   }
 
+  getAllRequestByState(state: string): Observable <any>{
+    return this.http.get <any>('http://localhost:8080/api/request/pending')
+  }
+
+  getMyRequests(taxiId: number): Observable <any>{
+    return this.http.get <any>('http://localhost:8080/api/request/accepted/' + taxiId)
+  }
+
   updateRequest(requestId: number, updatePayload: any): Observable<any> {
 
     return this.http.put<any>('http://localhost:8080/api/request/' + requestId, updatePayload);
