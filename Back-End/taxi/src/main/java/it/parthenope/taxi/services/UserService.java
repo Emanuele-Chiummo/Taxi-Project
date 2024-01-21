@@ -1,11 +1,12 @@
 package it.parthenope.taxi.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import it.parthenope.taxi.dto.DriverDto;
 
 @Service
-public interface DriverService {
-
-    DriverDto createDriver(DriverDto driverDto);
-
+public interface UserService {
+    List<DriverDto> getAllUsers();
 }

@@ -1,23 +1,35 @@
 package it.parthenope.taxi.controller;
 
+import java.util.List;
+
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController; // Aggiungi questa importazione
 
 import it.parthenope.taxi.dto.DriverDto;
 import it.parthenope.taxi.services.AuthService;
+import it.parthenope.taxi.services.UserService;
+
+@CrossOrigin(
+        origins = "*",
+        allowedHeaders = {"*"})
 
 @RestController 
 public class AuthController {
     
     @Autowired
     private AuthService authService;
+    
+    @Autowired
+    private UserService userService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/api/login")
@@ -34,5 +46,15 @@ public class AuthController {
             
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
+    }
+    
+ 
+
+
+    @GetMapping("/api/user")
+    public ResponseEntity<List<DriverDto>> getAllUsers() {
+        List<DriverDto> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(users);
     }
 }

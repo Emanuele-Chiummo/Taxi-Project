@@ -228,3 +228,26 @@ h4 {
    text-align: center;
 }
 
+/*Admin View */
+
+.row-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-button .col-md-4 {
+  flex: 1;
+  margin-right: 10px; /* Adjust margin as needed for spacing between buttons */
+}
+
+.row-button button {
+  font-size: 18px; /* Adjust font size for larger buttons */
+  padding: 20px; /* Adjust padding for larger buttons */
+  text-align: center; /* Center the text inside the button */
+}
+
+
+
+
+
+
