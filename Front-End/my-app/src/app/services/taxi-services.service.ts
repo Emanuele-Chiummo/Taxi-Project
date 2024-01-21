@@ -17,11 +17,11 @@ export class TaxiServicesService {
   }
 
   getTaxiIdByDriverId(driverId: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:8080//api/taxi/` + driverId);
+    return this.http.get<number>(`http://localhost:8080/api/taxi/` + driverId);
 }
 
-getTaxiById(taxiId: number): Observable<number> {
-  return this.http.get<number>('http://localhost:8080/api/taxi/id/' + taxiId);
+getTaxiById(taxiId: any): Observable<any> {
+  return this.http.get<any>('http://localhost:8080/api/taxi/id/' + taxiId);
 }
 
   postTaxi(body: any): Observable <any>{

@@ -164,6 +164,36 @@ export class WelcomeComponent implements OnInit {
       }
     );
   }
+
+  getTaxiIdByDriverId(): void {
+    const driverId = localStorage.getItem('currentUser');
+  
+    if (driverId && !isNaN(Number(driverId))) {
+      // Verifica che driverId sia presente nel localStorage e sia un numero valido
+      const numericDriverId = Number(driverId);
+
+      console.log('Driver ID:', numericDriverId);
+  
+      this.ts.getTaxiIdByDriverId(numericDriverId).subscribe(
+        (response) => {
+          console.log('Taxi ID response:', response);
+          localStorage.setItem('taxiId', response.toString());
+  
+          if (response !== null && response !== undefined) {
+            // Aggiungi ulteriori operazioni se necessario
+            this.taxi_id = response;
+          } else {
+            console.error('Taxi ID is null or undefined');
+          }
+        },
+        (error) => {
+          console.error('Error retrieving Taxi ID:', error);
+        }
+      );
+    } else {
+      console.log('Driver ID not found or invalid in local storage');
+    }
+  }
   
 
   getAllRequest() {
@@ -204,11 +234,15 @@ export class WelcomeComponent implements OnInit {
     this.ts.getTaxiById(Number(taxiId)).subscribe(
       (taxiInfo) => {
         // Aggiornamento delle informazioni nel request
-        updatedRequest.taxi = taxiInfo;
+        updatedRequest.taxi = {
+          id: taxiInfo.id,  // Assicurati che taxiInfo contenga l'id del taxi
+          identifier: taxiInfo.identifier,
+          driver: taxiInfo.driver
+        };
         updatedRequest.state = 'Accettata';
   
-        // Log delle informazioni aggiornate
-        console.log(updatedRequest);
+        // Chiamata al servizio per aggiornare la richiesta sul server
+        this.updateRequest(updatedRequest.id, updatedRequest);
       },
       (error) => {
         console.error('Errore durante la chiamata a getTaxiById', error);
@@ -223,38 +257,6 @@ export class WelcomeComponent implements OnInit {
 
     this.updateRequest(requestId, updatedRequest);
   }
-
-  getTaxiIdByDriverId(): void {
-    const driverId = localStorage.getItem('currentUser');
-  
-    if (driverId && !isNaN(Number(driverId))) {
-      // Verifica che driverId sia presente nel localStorage e sia un numero valido
-      const numericDriverId = Number(driverId);
-
-      console.log('Driver ID:', numericDriverId);
-  
-      this.ts.getTaxiIdByDriverId(numericDriverId).subscribe(
-        (response) => {
-          console.log('Taxi ID response:', response);
-          localStorage.setItem('taxiId', response.toString());
-  
-          if (response !== null && response !== undefined) {
-            // Aggiungi ulteriori operazioni se necessario
-            this.taxi_id = response;
-          } else {
-            console.error('Taxi ID is null or undefined');
-          }
-        },
-        (error) => {
-          console.error('Error retrieving Taxi ID:', error);
-        }
-      );
-    } else {
-      console.log('Driver ID not found or invalid in local storage');
-    }
-  }
-  
-
 
     onChangeSelect(event: Event) {
     const selectedValue = this.richiesteForm.controls['partenza_destinazione'].value.split('_');
