@@ -24,14 +24,6 @@
     padding-top: 80px;
   }
 
-  #hero .icon-box a {
-    display: block;
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-  }
   
   #hero h1 {
     margin: 0;
