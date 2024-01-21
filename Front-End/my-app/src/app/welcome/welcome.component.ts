@@ -331,47 +331,23 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  //Admin
-
-  getAllUser(): void {
-    this.ts.getAllUser().subscribe((user) => {
-      this.user = user;
-
-      console.log(this.user);
-
-      this.showTableUser = true;
-    });
-}
-
-toggleTableUser(): void {
-  this.showTableUser = !this.showTableUser;
-
-  // Se la tabella viene mostrata, carica gli utenti
-  if (this.showTableUser) {
-    this.getAllUser();
+  navigateToUserPage() {
+    this.router.navigate(['/user']);
   }
-}
 
-getAllCourse(): void {
-  this.ts.getAllCourse().subscribe((course) => {
-    this.course = course;
-
-    console.log(this.course);
-
-    this.showTableCourse = true;
-  });
-
-
-}
-
-toggleTableCourse(): void {
-  this.showTableCourse = !this.showTableCourse;
-
-  // Se la tabella viene mostrata, carica gli utenti
-  if (this.showTableCourse) {
-    this.getAllCourse();
+  navigateToCoursePage() {
+    this.router.navigate(['/course']);
   }
-}
+
+  navigateToTaxiPage() {
+    this.router.navigate(['/taxi']);
+  }
+
+  navigateToAnalyticsPage() {
+    this.router.navigate(['/analytics']);
+  }
+
+
 
 }
 

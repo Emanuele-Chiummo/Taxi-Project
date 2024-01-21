@@ -12,6 +12,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { HeaderComponent } from './header/header.component';
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { AdminCourseComponent } from './admin-course/admin-course.component';
+import { AdminTaxiComponent } from './admin-taxi/admin-taxi.component';
+import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,10 @@ import { HeaderComponent } from './header/header.component';
     WelcomeComponent,
     SpinnerComponent,
     HeaderComponent,
+    AdminUserComponent,
+    AdminCourseComponent,
+    AdminTaxiComponent,
+    AdminAnalyticsComponent,
   ],
   imports: [
     BrowserModule,

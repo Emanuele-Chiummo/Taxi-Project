@@ -1,0 +1,58 @@
+<div class="row row-button">
+    <div class="col-md-4">
+      <button type="button" class="btn btn-warning btn-block" (click)="toggleTableUser()">Utenti</button>
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn btn-warning btn-block" (click)="toggleTableCourse()">Corse</button>
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn btn-warning btn-block">Statistiche</button>
+    </div>
+  </div>
+
+  <div *ngIf="showTableUser" class="table-container">
+    <table class="table table-bordered table-yellow" style="width: 60em;">
+      <thead>
+        <tr class="table-dark">
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Email</th>
+          <th>Telefono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of user">
+
+          <td>{{ user.name + ' ' + user.lastName }}</td>
+          <td>{{ user.userType }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.mobilePhone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--Course-->
+
+  <div *ngIf="showTableCourse" class="table-container">
+    <table class="table table-bordered table-yellow" style="width: 60em;">
+      <thead>
+        <tr class="table-dark">
+          <th>Tratta</th>
+          <th>Tariffa</th>
+          <th>Km</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of course">
+
+          <td>{{ course.startLocation.name + '-' + course.endLocation.name}}</td>
+          <td>{{ course.ratesType.amount + '€'}}</td>
+          <td>{{ course.km + 'km' }}</td>
+          <td><button class="btn btn-primary">Aggiorna tariffe</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
