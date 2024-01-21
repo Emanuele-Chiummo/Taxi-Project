@@ -235,7 +235,7 @@ export class WelcomeComponent implements OnInit {
       (taxiInfo) => {
         // Aggiornamento delle informazioni nel request
         updatedRequest.taxi = {
-          id: taxiInfo.id,  // Assicurati che taxiInfo contenga l'id del taxi
+          id: taxiInfo.id,  
           identifier: taxiInfo.identifier,
           driver: taxiInfo.driver
         };

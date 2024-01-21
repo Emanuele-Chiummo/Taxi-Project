@@ -12,10 +12,12 @@ import { UserServiceService } from '../services/user-service.service';
 })
 export class HeaderComponent {
 
+
+
   isNavbarExpanded = false;
   @ViewChild('navbar') navbar: ElementRef | undefined;
 
-
+  taxi_id: any;
   role!: any
   name!: any
   logged: any = '';
@@ -99,6 +101,36 @@ export class HeaderComponent {
     }
   }
 
+  getTaxiIdByDriverId(): void {
+    const driverId = localStorage.getItem('currentUser');
+  
+    if (driverId && !isNaN(Number(driverId))) {
+      const numericDriverId = Number(driverId);
+  
+      //console.log('Driver ID:', numericDriverId);
+  
+      this.taxiService.getTaxiIdByDriverId(numericDriverId).subscribe(
+        (response) => {
+          //console.log('Taxi ID response:', response);
+  
+          if (response !== null && response !== undefined) {
+            localStorage.setItem('taxiId', response.toString());
+            this.taxi_id = response;
+  
+            //console.log('Taxi ID stored in localStorage:', this.taxi_id);
+          } else {
+            console.error('Taxi ID is null or undefined');
+          }
+        },
+        (error) => {
+          console.error('Error retrieving Taxi ID:', error);
+        }
+      );
+    } else {
+      //console.log('Driver ID not found or invalid in local storage');
+    }
+  }
+  
   login() {
     this.authService.authenticate(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       data => {
@@ -107,19 +139,27 @@ export class HeaderComponent {
           localStorage.setItem('Nome', data.name + ' ' + data.lastName);
           localStorage.setItem('logged', 'logged');
           localStorage.setItem('role', data.userType);
+  
+          //console.log('Driver ID from login:', data.id);
+  
+          this.getTaxiIdByDriverId(); // Chiamata alla funzione modificata
         }
+  
         this.router.navigate(['welcome']);
       },
       error => {
-        this.error = true
+        this.error = true;
         this.errorMsg = error.error;
+        console.error('Login error:', error);
+  
         setTimeout(() => {
-          this.error = false
+          this.error = false;
           this.errorMsg = error.error;
         }, 3000);
       }
     );
   }
+  
 
 
   logout() {
