@@ -19,7 +19,6 @@ public interface RequestService {
 
 	List<RequestDto> getAllRequestByState(String string);
 
-	List<RequestDto> getAllRequestByStateAccepted(String string);
 
 	List<RequestDto> getMyRequests(Long taxiId);
 

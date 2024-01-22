@@ -23,6 +23,8 @@ export class AdminUserComponent {
   constructor(private ts: TaxiServicesService) { }
 
   ngOnInit(): void {
+
+    this.getAllUser();
   }
 
     //Admin
@@ -46,25 +48,9 @@ export class AdminUserComponent {
     }
   }
   
-  getAllCourse(): void {
-    this.ts.getAllCourse().subscribe((course) => {
-      this.course = course;
-  
-      console.log(this.course);
-  
-      this.showTableCourse = true;
-    });
   
   
   }
   
-  toggleTableCourse(): void {
-    this.showTableCourse = !this.showTableCourse;
-  
-    // Se la tabella viene mostrata, carica gli utenti
-    if (this.showTableCourse) {
-      this.getAllCourse();
-    }
-  }
 
-}
+

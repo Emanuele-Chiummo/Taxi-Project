@@ -1,0 +1,150 @@
+.add-user{
+    margin-top: 125px;
+    margin-bottom: 50px;
+
+}
+
+.table-container {
+    margin: 0 auto;
+}
+
+.my-button {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+
+
+table {
+    border: 1px solid #ffc20f;
+    border-radius: 8px;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 10;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table th{
+    background-color: #ffc20f;
+    color: #000;
+    padding: .625em;
+    text-align: center;
+
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+
+
+table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: center;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+/* Aggiungi stile ai bottoni di accettazione */
+button.accept {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color:#4cae4c;
+}
+
+/* Cambia colore di sfondo al passaggio del mouse per accettazione */
+button.accept:hover {
+    background-color: #4cae4c;
+    color:#fff;
+}
+
+/* Aggiungi stile ai bottoni di rifiuto */
+button.reject {
+    background: none;
+    color: #d9534f;
+    border: none;
+    box-shadow: none;
+}
+
+/* Cambia colore di sfondo al passaggio del mouse per rifiuto */
+button.reject:hover {
+    background-color: #c9302c;
+    color:#fff;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    button {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        
+    }
+
+    table {
+        border: 0;
+    }
+
+    table caption {
+        font-size: 1.3em;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    table td::before {
+     
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    .button {
+        margin-top: 50px;
+    }
+}
