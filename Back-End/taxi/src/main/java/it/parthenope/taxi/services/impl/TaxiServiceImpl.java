@@ -15,6 +15,7 @@ import it.parthenope.taxi.model.Driver;
 import it.parthenope.taxi.model.Request;
 import it.parthenope.taxi.model.Taxi;
 import it.parthenope.taxi.repository.DriverRepository;
+import it.parthenope.taxi.repository.RequestRepository;
 import it.parthenope.taxi.repository.TaxiRepository;
 import it.parthenope.taxi.services.TaxiService;
 import jakarta.persistence.EntityManager;
@@ -31,6 +32,10 @@ public class TaxiServiceImpl implements TaxiService {
 	
 	@Autowired
 	DriverRepository driverRepository;
+	
+	@Autowired
+	
+	RequestRepository requestRepository;
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -98,10 +103,24 @@ public class TaxiServiceImpl implements TaxiService {
     
     @Override
     public void deleteTaxi(Integer id) {
-    	Optional<Taxi> taxiOptional = taxiRepository.findById(id);
+        Optional<Taxi> taxiOptional = taxiRepository.findById(id);
 
         if (taxiOptional.isPresent()) {
             Taxi taxi = taxiOptional.get();
+
+           
+            /*List<Request> requests = requestRepository.findByTaxi(taxi);
+            for (Request request : requests) {
+              request.setTaxi(null);
+              requestRepository.save(request);
+            }*/
+            
+            List<Request> requests = requestRepository.findByTaxi(taxi);
+
+            if (!requests.isEmpty()) {
+                // Se ci sono richieste correlate, restituisci un messaggio di errore
+                throw new RuntimeException("Impossibile eliminare il taxi. È associato a una o più richieste.");
+            }
 
             // Dissocia l'utente dal taxi
             taxi.setDriver(null);
@@ -113,5 +132,6 @@ public class TaxiServiceImpl implements TaxiService {
             throw new RuntimeException("Impossibile trovare il taxi con ID: " + id);
         }
     }
+
 
 }

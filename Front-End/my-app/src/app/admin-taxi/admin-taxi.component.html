@@ -1,6 +1,13 @@
+
+
 <div class="col-md-4">
     <button type="button" class="btn btn-warning btn-block add-user" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" >Aggiungi Taxi</button>
 </div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-3">
+  {{ errorMessage }}
+</div>
+
   
   <div class="table-container">
     <!--<button (click)="getMyRequests()" class="btn btn-warning d-inline-block my-button">Aggiorna</button>-->
@@ -23,7 +30,7 @@
   
           <td>
             <div class="btn-group">
-              <button type="button" title="accetta" class="actions accept"  data-bs-toggle="modal" data-bs-target="#updateTaxi" (click)="openModalWithPrecompiledData()">
+              <button type="button" title="accetta" class="actions accept"  data-bs-toggle="modal" data-bs-target="#updateTaxi" (click)="openModalWithPrecompiledData(taxi.driver.name,taxi.driver.lastName)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -34,6 +41,9 @@
                       <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                     </svg>
                   </button>
+
+                 
+
             </div>
           </td>
         </tr>
@@ -46,54 +56,50 @@
 
 
   <!-- Modal Add Taxi-->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add Taxi</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Riassegna Taxi</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+              </svg>
             </span>
           </button>
         </div>
-        <form [formGroup]="taxiForm" (ngSubmit)="saveChanges()">
+        <form [formGroup]="taxiForm">
           <div class="modal-body">
             <!-- Identifier Input Field -->
             <div class="mb-3">
-              <label for="identifier" class="form-label">Identifier</label>
+              <label for="identifier" class="form-label">Identificativo</label>
               <input type="text" class="form-control" id="identifier" formControlName="identifier" placeholder="Enter identifier">
             </div>
-        
+  
             <!-- Select Box for User Positioning -->
             <div class="mb-3">
-              <div class="mb-3">
-                <label for="userPosition" class="form-label">Select User Position</label>
-                <select class="form-select" id="userPosition">
-                  <option *ngFor="let option of tassisti" [value]="option.name + ' ' + option.lastName">
-                    {{ option.name + ' ' + option.lastName }}
-                  </option>
-                </select>
-              </div>
-              
+              <label for="userPosition" class="form-label">Selezione Tassista</label>
+              <select class="form-select" id="userPosition" formControlName="userPosition" (change)="changeSelecy($event)">
+                <option *ngFor="let option of tassisti" [ngValue]="option">
+                  {{ option.name + ' ' + option.lastName }}
+                </option>
+              </select>
             </div>
-
+            
+  
             <div *ngIf="showConfirmationMessage" class="alert alert-success mb-3" role="alert">
               Changes saved successfully!
             </div>
-        
-            <!-- Other Fields or Controls as Needed -->
+            
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" (click)="saveChanges()">Aggiorna</button>
           </div>
         </form>
-        
       </div>
     </div>
-</div>
+  </div>
 
 
 
@@ -112,7 +118,7 @@
             </span>
           </button>
         </div>
-        <form [formGroup]="taxiForm" (ngSubmit)="saveChanges()">
+        <form [formGroup]="taxiForm">
           <div class="modal-body">
             <!-- Identifier Input Field -->
             <div class="mb-3">
@@ -124,7 +130,7 @@
             <div class="mb-3">
               <label for="userPosition" class="form-label">Selezione Tassista</label>
               <select class="form-select" id="userPosition" formControlName="userPosition">
-                <option *ngFor="let option of tassisti" [ngValue]="option">
+                <option *ngFor="let option of tassisti" [ngValue]="option" selected>
                   {{ option.name + ' ' + option.lastName }}
                 </option>
               </select>

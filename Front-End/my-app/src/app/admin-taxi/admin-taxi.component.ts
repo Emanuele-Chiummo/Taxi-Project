@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@ang
 import { TaxiServicesService } from '../services/taxi-services.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import e from 'express';
+import { event } from 'jquery';
+
 
 interface User {
   name: string;
@@ -16,6 +17,14 @@ interface TaxiFormModel {
 }
 
 
+interface TaxiFormSubmit{
+  identifier: string;
+  driver: {
+    id: number;
+  }; 
+}
+
+
 
 @Component({
   selector: 'app-admin-taxi',
@@ -25,12 +34,15 @@ interface TaxiFormModel {
 export class AdminTaxiComponent implements OnInit{
 
 
+
+
   taxiForm: FormGroup; 
 
   showConfirmationMessage: boolean = false;
 
   selectedTaxi: any; 
 
+  errorMessage: string = ''; 
 
   users: any[] = [];
 
@@ -43,6 +55,7 @@ export class AdminTaxiComponent implements OnInit{
     this.getAlltaxi();  
 
     this.loadTassisti();
+
 
   }
 
@@ -60,6 +73,7 @@ export class AdminTaxiComponent implements OnInit{
         password: [''],
       }),
     });
+    
   }
 
   getAlltaxi() {
@@ -81,34 +95,60 @@ loadTassisti() {
   });
 }
 
+changeSelecy(event: Event): void {
+
+  console.log('evento:', event);
+}
+
+
 saveChanges() {
-  // Recupera i dati dal form e invia la richiesta HTTP
+
   const formData = this.taxiForm.value;
+  const selectedUserId = this.taxiForm.value.userPosition;
 
-  // Ottieni l'id selezionato dalla stringa 'userPosition'
-  const selectedUserId = formData.userPosition.split(' ')[0];
+  console.log('Valore di userPosition:', this.taxiForm.value.userPosition);
 
-  // Costruisci il corpo della richiesta da inviare
-  const requestBody = {
-    identifier: formData.identifier,
-    driver: {
-      id: selectedUserId,
-    }
-  };
+  const form = this.taxiForm.value;
+
+  // Ottieni l'ID direttamente dall'oggetto userPosition
+  const user = formData.userPosition.id;
+
+  console.log('Valore di user:', user);
+
+    // Costruisci il corpo della richiesta da inviare
+    const requestBody = {
+      identifier: formData.identifier,
+      driver: {
+        id: formData.userPosition.id,
+        name: formData.userPosition.name,
+        lastName: formData.userPosition.lastName,
+        fiscalCode: formData.userPosition.fiscalCode,
+        email: formData.userPosition.email,
+        mobilePhone: formData.userPosition.mobilePhone,
+        userType: formData.userPosition.userType,
+        password: formData.userPosition.password,
+  
+      }
+    };
 
   // Invia la richiesta HTTP
   this.ts.postTaxi(requestBody).subscribe(
     response => {
-
       this.showConfirmationMessage = true;
       this.modalService.dismissAll();
+      setTimeout(function() {
+        window.location.reload();
+    }, 3000);
 
     },
     error => {
       console.log(error);
     }
+
+
   );
 }
+
 
 closeModal() {
   // Chiudi la modale e reimposta lo stato del messaggio di successo
@@ -117,25 +157,14 @@ closeModal() {
   this.taxiForm.reset();
 }
 
-openModalWithPrecompiledData() {
-  if (this.selectedTaxi) {
-    const userPosition = {
-      id: this.selectedTaxi.driver.id,
-      name: this.selectedTaxi.driver.name,
-      lastName: this.selectedTaxi.driver.lastName
-    };
+openModalWithPrecompiledData(name:string,lastName:string) {
 
-    console.log('tassisti:', this.tassisti);
+  console.log('Nome:', name + ' ' + lastName);
 
-    this.taxiForm.setValue({
-      identifier: this.selectedTaxi.identifier,
-      userPosition: userPosition.id,
-    });
+  let user = this.taxiForm.controls['userPosition'].patchValue({name: name, lastName: lastName});
 
-    this.cdr.detectChanges();
-  } else {
-    console.error('Nessun taxi selezionato');
-  }
+  console.log('User: '+ user);
+    
 }
 
 onSelectTaxi(taxi: any) {
@@ -199,6 +228,10 @@ updateTaxi(): void {
     this.ts.updateTaxi(taxiId, updatePayload).subscribe(
       (response) => {
         console.log('Taxi aggiornato con successo:', response);
+
+        setTimeout(function() {
+          window.location.reload();
+      }, 3000);
         // Puoi aggiungere ulteriori logica o azioni dopo l'aggiornamento del taxi
       },
       (error) => {
@@ -222,6 +255,12 @@ updateTaxi(): void {
       },
       (error) => {
         console.error('Errore durante l\'eliminazione del taxi:', error);
+
+        
+          // Imposta il messaggio di errore
+          this.errorMessage = 'Impossibile eliminare il taxi. È associato a una o più richieste.';
+
+      
         // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
       }
     );
