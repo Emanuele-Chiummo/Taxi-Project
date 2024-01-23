@@ -208,52 +208,31 @@ updateTaxi(): void {
     );
   }
 
+  deleteTaxi(taxi: any): void {
+    // Ottieni l'ID direttamente dall'oggetto taxi
+    const taxiId = taxi.id;
+  
+    console.log('taxi da cancellare:', taxiId);
+  
+    // Invia la richiesta HTTP per eliminare il taxi
+    this.ts.deleteTaxi(taxiId).subscribe(
+      (response) => {
+        console.log('Taxi eliminato con successo:', response);
+        // Puoi aggiungere ulteriori logica o azioni dopo l'eliminazione del taxi
+      },
+      (error) => {
+        console.error('Errore durante l\'eliminazione del taxi:', error);
+        // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
+      }
+    );
+  }
+  
+
+
 
 
 }
 
-/*
-updateTaxi(): void {
-  // Recupera i dati dal form e ottieni l'id dell'utente selezionato
-  const formData = this.taxiForm.value;
-  const selectedUserId = this.taxiForm.value.userPosition;
-
-  console.log('Valore di userPosition:', this.taxiForm.value.userPosition);
-
-  const form = this.taxiForm.value;
-
-  // Ottieni l'ID direttamente dall'oggetto userPosition
-  const user = formData.userPosition.id;
-
-  console.log('Valore di user:', user);
-
-
-  // Costruisci il corpo della richiesta da inviare
-  const updatePayload = {
-    id: this.selectedTaxi.id,
-    identifier: formData.identifier,
-    driver: {
-      id: this.selectedTaxi.driver.id,
-
-    }
-  };
-  
-
-  // Ottieni l'ID del taxi da qualche fonte (potrebbe essere il tuo this.selectedTaxi.id)
-  const taxiId = this.selectedTaxi.id;
-
-  // Invia la richiesta HTTP per aggiornare il taxi
-  this.ts.updateTaxi(taxiId, updatePayload).subscribe(
-    (response) => {
-      console.log('Taxi aggiornato con successo:', response);
-      // Puoi aggiungere ulteriori logica o azioni dopo l'aggiornamento del taxi
-    },
-    (error) => {
-      console.error('Errore durante l\'aggiornamento del taxi:', error);
-      // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
-    }
-  );
-} */
 
 
 

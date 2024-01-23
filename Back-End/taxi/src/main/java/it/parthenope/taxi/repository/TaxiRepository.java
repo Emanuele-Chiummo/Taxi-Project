@@ -16,6 +16,8 @@ public interface TaxiRepository extends JpaRepository<Taxi, Integer> {
 	Optional<Taxi> findById(Integer taxiId);
 
 	void save(Request taxi);
+
+	void deleteById(Long taxiId);
 	
 
 }

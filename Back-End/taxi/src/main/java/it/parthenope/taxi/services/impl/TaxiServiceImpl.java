@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import it.parthenope.taxi.dto.RequestDto;
@@ -93,6 +94,24 @@ public class TaxiServiceImpl implements TaxiService {
     public void updateTaxi(TaxiDto taxiDto) {
         Taxi taxi = taxiMapper.dtoToModel(taxiDto);
         taxiRepository.save(taxi);
+    }
+    
+    @Override
+    public void deleteTaxi(Integer id) {
+    	Optional<Taxi> taxiOptional = taxiRepository.findById(id);
+
+        if (taxiOptional.isPresent()) {
+            Taxi taxi = taxiOptional.get();
+
+            // Dissocia l'utente dal taxi
+            taxi.setDriver(null);
+            taxiRepository.save(taxi);
+
+            // Elimina il taxi
+            taxiRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Impossibile trovare il taxi con ID: " + id);
+        }
     }
 
 }

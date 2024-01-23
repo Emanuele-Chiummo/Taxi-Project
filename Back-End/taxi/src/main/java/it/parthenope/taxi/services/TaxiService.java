@@ -20,6 +20,8 @@ public interface TaxiService {
 	boolean taxiExists(Integer id);
 
 	void updateTaxi(TaxiDto taxiDto);
+
+	void deleteTaxi(Integer id);
 	 
 	 
 
