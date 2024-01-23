@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 import it.parthenope.taxi.dto.TaxiDto;
 import it.parthenope.taxi.mappers.TaxiMapper;
+import it.parthenope.taxi.model.Driver;
 import it.parthenope.taxi.model.Taxi;
+import it.parthenope.taxi.repository.DriverRepository;
 import it.parthenope.taxi.repository.TaxiRepository;
 import it.parthenope.taxi.services.TaxiService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class TaxiServiceImpl implements TaxiService {
@@ -21,16 +25,31 @@ public class TaxiServiceImpl implements TaxiService {
 
 	@Autowired
 	TaxiRepository taxiRepository;
+	
+	@Autowired
+	DriverRepository driverRepository;
+	
+	@PersistenceContext
+    private EntityManager entityManager;
 
 	@Override
 	public TaxiDto createTaxi(TaxiDto taxiDto) {
-		// TODO Auto-generated method stub
+	    Taxi taxi = taxiMapper.dtoToModel(taxiDto);
 
-		Taxi taxi = taxiMapper.dtoToModel(taxiDto);
-		taxiRepository.save(taxi);
+	    
+	    if (entityManager.contains(taxi.getDriver())) {
+	        taxi.setDriver(taxi.getDriver());
+	    } else {
+	        
+	        Driver existingDriver = driverRepository.findById(taxi.getDriver().getId()).orElse(null);
+	        taxi.setDriver(existingDriver);
+	    }
 
-		return taxiMapper.modelToDto(taxi);
+	    taxiRepository.save(taxi);
+
+	    return taxiMapper.modelToDto(taxi);
 	}
+
 
 	@Override
 	public List<TaxiDto> getAllTaxi() {

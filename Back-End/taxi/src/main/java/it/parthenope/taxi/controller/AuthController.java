@@ -57,4 +57,13 @@ public class AuthController {
 
         return ResponseEntity.ok(users);
     }
+    
+    @GetMapping("/api/user/tassisti")  
+    public ResponseEntity<List<DriverDto>> getTassisti() {
+        List<DriverDto> tassisti = userService.getTassisti("tassista");  
+
+        return ResponseEntity.ok(tassisti);
+    }
+    
+    
 }

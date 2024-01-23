@@ -60,6 +60,10 @@ getTaxiById(taxiId: any): Observable<any> {
 
   }
 
+  getTassisti(): Observable<any[]> {
+    return this.http.get<any>('http://localhost:8080/api/user/tassisti');
+  }
+
   
 
 

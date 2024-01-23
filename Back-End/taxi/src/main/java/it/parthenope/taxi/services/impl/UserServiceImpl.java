@@ -29,5 +29,14 @@ public class UserServiceImpl implements UserService {
                 .map(authMapper::modelToDto)
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<DriverDto> getTassisti(String userType) {
+        List<Driver> tassisti = driverRepository.findByUserType(userType);  
+
+        return tassisti.stream()
+                .map(authMapper::modelToDto)
+                .collect(Collectors.toList());
+    }
 }
 

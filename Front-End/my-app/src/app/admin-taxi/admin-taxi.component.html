@@ -17,8 +17,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let taxi of taxi">
-          <td data-label="Nome">{{ taxi.identifier}}</td>
-          <td data-label="Tipo">{{ taxi.driver.name + taxi.driver.lastName}}</td>
+          <td data-label="Identificativo">{{ taxi.identifier}}</td>
+          <td data-label="Nome">{{ taxi.driver.name + ' ' + taxi.driver.lastName}}</td>
           <td data-label="Email">{{ taxi.driver.email }}</td>
   
           <td>
@@ -51,7 +51,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Add Taxi</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
@@ -59,29 +59,35 @@
             </span>
           </button>
         </div>
-        <div class="modal-body">
-          <!-- Identifier Input Field -->
-          <div class="mb-3">
-            <label for="identifier" class="form-label">Identifier</label>
-            <input type="text" class="form-control" id="identifier" placeholder="Enter identifier">
-          </div>
-
-          <!-- Select Box for User Positioning -->
-          <div class="mb-3">
-            <label for="userPosition" class="form-label">Select User Position</label>
-            <select class="form-select" id="userPosition" formControlName="userPosition">
-                <option *ngFor="let option of users" [value]="option.name + ' ' + option.lastName">
-                    {{ option.name + ' ' + option.lastName }}
+        <form [formGroup]="taxiForm" (ngSubmit)="saveChanges()">
+          <div class="modal-body">
+            <!-- Identifier Input Field -->
+            <div class="mb-3">
+              <label for="identifier" class="form-label">Identifier</label>
+              <input type="text" class="form-control" id="identifier" formControlName="identifier" placeholder="Enter identifier">
+            </div>
+        
+            <!-- Select Box for User Positioning -->
+            <div class="mb-3">
+              <label for="userPosition" class="form-label">Select User Position</label>
+              <select class="form-select" id="userPosition" formControlName="userPosition">
+                <option *ngFor="let option of tassisti" [value]="option.id">
+                  {{ option.name + ' ' + option.lastName }}
                 </option>
-            </select>
-            
-          </div>
+              </select>
+            </div>
 
-          <!-- Other Fields or Controls as Needed -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+            <div *ngIf="showConfirmationMessage" class="alert alert-success mb-3" role="alert">
+              Changes saved successfully!
+            </div>
+        
+            <!-- Other Fields or Controls as Needed -->
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+        
       </div>
     </div>
 </div>

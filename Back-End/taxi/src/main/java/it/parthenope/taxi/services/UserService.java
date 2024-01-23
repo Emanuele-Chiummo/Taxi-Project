@@ -9,4 +9,6 @@ import it.parthenope.taxi.dto.DriverDto;
 @Service
 public interface UserService {
     List<DriverDto> getAllUsers();
+
+	List<DriverDto> getTassisti(String string);
 }

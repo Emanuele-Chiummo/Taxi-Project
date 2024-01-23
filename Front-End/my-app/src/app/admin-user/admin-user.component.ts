@@ -38,6 +38,8 @@ export class AdminUserComponent {
         this.showTableUser = true;
       });
   }
+
+  
   
   toggleTableUser(): void {
     this.showTableUser = !this.showTableUser;
