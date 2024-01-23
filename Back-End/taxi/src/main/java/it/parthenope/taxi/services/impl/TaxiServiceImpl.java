@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.parthenope.taxi.dto.RequestDto;
 import it.parthenope.taxi.dto.TaxiDto;
 import it.parthenope.taxi.mappers.TaxiMapper;
 import it.parthenope.taxi.model.Driver;
+import it.parthenope.taxi.model.Request;
 import it.parthenope.taxi.model.Taxi;
 import it.parthenope.taxi.repository.DriverRepository;
 import it.parthenope.taxi.repository.TaxiRepository;
@@ -80,6 +82,17 @@ public class TaxiServiceImpl implements TaxiService {
     public TaxiDto getTaxiById(Integer taxiId) {
         Optional<Taxi> taxiOptional = taxiRepository.findById(taxiId);
         return taxiOptional.map(taxiMapper::modelToDto).orElse(null);
+    }
+    
+    @Override
+    public boolean taxiExists(Integer id) {
+        return taxiRepository.existsById(id);
+    }
+
+    @Override
+    public void updateTaxi(TaxiDto taxiDto) {
+        Taxi taxi = taxiMapper.dtoToModel(taxiDto);
+        taxiRepository.save(taxi);
     }
 
 }

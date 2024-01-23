@@ -64,6 +64,11 @@ getTaxiById(taxiId: any): Observable<any> {
     return this.http.get<any>('http://localhost:8080/api/user/tassisti');
   }
 
+  updateTaxi(taxiId: number, updatePayload: any): Observable<any> {
+
+    return this.http.put<any>('http://localhost:8080/api/taxi/' + taxiId, updatePayload);
+  }
+
   
 
 

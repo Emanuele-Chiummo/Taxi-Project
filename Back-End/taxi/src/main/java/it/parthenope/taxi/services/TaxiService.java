@@ -16,6 +16,10 @@ public interface TaxiService {
 	 Integer getTaxiIdByDriverId(Integer driverId);
 	 
 	 TaxiDto getTaxiById(Integer taxiId);
+
+	boolean taxiExists(Integer id);
+
+	void updateTaxi(TaxiDto taxiDto);
 	 
 	 
 
