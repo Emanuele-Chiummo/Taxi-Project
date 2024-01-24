@@ -97,8 +97,9 @@ export class AdminCourseComponent implements OnInit{
           id: this.selectedCourse.ratesType.id,
           ratesType: this.selectedCourse.ratesType.ratesType,
           amount: parseFloat(tariffaWithoutEuro) // Use formData.tariffa directly
-        }
-        // ... other properties
+        },
+        active:1,
+
       };
 
       this.ts.updateCourse(courseId, updatePayload).subscribe(
