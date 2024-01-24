@@ -25,12 +25,13 @@ DROP TABLE IF EXISTS `taxi`;
 CREATE TABLE `taxi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `identifier` varchar(45) NOT NULL,
-  `driver_id` int NOT NULL,
+  `driver_id` int DEFAULT NULL,
+  `active` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `identificativo_UNIQUE` (`identifier`),
   KEY `FK_taxi_users_idx` (`driver_id`),
   CONSTRAINT `FK_taxi_users` FOREIGN KEY (`driver_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `taxi` (
 
 LOCK TABLES `taxi` WRITE;
 /*!40000 ALTER TABLE `taxi` DISABLE KEYS */;
-INSERT INTO `taxi` VALUES (1,'TX123',1),(2,'string',2),(8,'TX124',8);
+INSERT INTO `taxi` VALUES (9,'TX345',9,1),(22,'TX347',8,1),(24,'TX150',8,1),(25,'TX348',8,1),(29,'TX151',8,0),(30,'TX152',9,0),(31,'TX153',8,0);
 /*!40000 ALTER TABLE `taxi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-18 20:38:19
+-- Dump completed on 2024-01-24 22:51:03

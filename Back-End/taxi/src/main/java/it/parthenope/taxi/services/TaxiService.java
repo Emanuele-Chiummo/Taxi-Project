@@ -22,6 +22,10 @@ public interface TaxiService {
 	void updateTaxi(TaxiDto taxiDto);
 
 	void deleteTaxi(Integer id);
+
+	boolean checkIfUserHasTaxi(Integer driverId);
+
+	void deactivateTaxi(Integer id);
 	 
 	 
 

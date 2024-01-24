@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController; // Aggiungi questa importazione
 
@@ -63,6 +65,12 @@ public class AuthController {
         List<DriverDto> tassisti = userService.getTassisti("tassista");  
 
         return ResponseEntity.ok(tassisti);
+    }
+    
+    @PutMapping("/api/user/deactivate/{id}")
+    public ResponseEntity<Void> deactivateDriver(@PathVariable Integer id) {
+        userService.deactivateDriver(id);
+        return ResponseEntity.ok().build();
     }
     
     

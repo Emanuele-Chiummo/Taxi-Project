@@ -12,6 +12,7 @@ public class CourseDto {
     private Location endLocation;
     private BigDecimal km;
     private Rates ratesType;
+    private Integer active;
     
 	public Integer getId() {
 		return id;
@@ -43,6 +44,13 @@ public class CourseDto {
 	public void setRatesType(Rates ratesType) {
 		this.ratesType = ratesType;
 	}
+	public Integer getActive() {
+        return active;
+    }
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
 	
     
 

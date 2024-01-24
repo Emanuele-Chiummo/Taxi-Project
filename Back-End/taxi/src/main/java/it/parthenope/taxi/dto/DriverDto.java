@@ -10,6 +10,8 @@ public class DriverDto {
     private String mobilePhone;
     private String userType;
     private String password;
+    private Integer active;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -58,6 +60,13 @@ public class DriverDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Integer getActive() {
+        return active;
+    }
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
 
 
 

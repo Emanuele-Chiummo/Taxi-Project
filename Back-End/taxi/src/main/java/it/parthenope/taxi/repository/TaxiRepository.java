@@ -1,5 +1,6 @@
 package it.parthenope.taxi.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,8 @@ public interface TaxiRepository extends JpaRepository<Taxi, Integer> {
 	void save(Request taxi);
 
 	void deleteById(Long taxiId);
+
+	List<Taxi> findByActive(int active);
 	
 
 }

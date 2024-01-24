@@ -28,6 +28,7 @@ CREATE TABLE `courses` (
   `end_location_id` int NOT NULL,
   `km` decimal(5,2) NOT NULL,
   `rates_id` int NOT NULL,
+  `active` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_courses_locations_start_idx` (`start_location_id`),
   KEY `FK_courses_locations_end_idx` (`end_location_id`),
@@ -44,7 +45,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (6,12,11,15.50,18),(7,12,13,15.50,6),(8,13,14,8.00,7);
+INSERT INTO `courses` VALUES (6,12,11,15.70,27,1),(7,12,13,15.50,6,1),(8,13,14,8.00,7,1);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-18 20:38:19
+-- Dump completed on 2024-01-24 22:51:03

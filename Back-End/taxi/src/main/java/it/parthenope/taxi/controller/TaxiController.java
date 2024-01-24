@@ -62,6 +62,12 @@ public class TaxiController {
 	    }
 	}
 	
+	@GetMapping("/api/taxi/hasTaxi/{driverId}")
+    public ResponseEntity<Boolean> checkIfUserHasTaxi(@PathVariable Integer driverId) {
+        boolean hasTaxi = taxiService.checkIfUserHasTaxi(driverId);
+        return ResponseEntity.ok(hasTaxi);
+    }
+	
 	@PutMapping("/api/taxi/{id}")
     public ResponseEntity<TaxiDto> updateTaxi(@PathVariable Integer id, @RequestBody TaxiDto taxiDto) {
 
@@ -74,6 +80,12 @@ public class TaxiController {
 
         return new ResponseEntity<>(taxiDto, HttpStatus.OK);
     }
+	
+	@PutMapping("/api/taxi/deactivate/{id}")
+	public ResponseEntity<Void> deactivateTaxi(@PathVariable Integer id) {
+	    taxiService.deactivateTaxi(id);
+	    return ResponseEntity.ok().build();
+	}
 	
 	@DeleteMapping("api/taxi/{id}")
     public ResponseEntity<String> deleteTaxi(@PathVariable Integer id) {

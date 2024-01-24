@@ -17,11 +17,11 @@ interface TaxiFormModel {
 }
 
 
-interface TaxiFormSubmit{
+interface TaxiFormSubmit {
   identifier: string;
   driver: {
     id: number;
-  }; 
+  };
 }
 
 
@@ -31,18 +31,19 @@ interface TaxiFormSubmit{
   templateUrl: './admin-taxi.component.html',
   styleUrl: './admin-taxi.component.css'
 })
-export class AdminTaxiComponent implements OnInit{
+export class AdminTaxiComponent implements OnInit {
 
 
 
 
-  taxiForm: FormGroup; 
+  taxiForm: FormGroup;
 
-  showConfirmationMessage: boolean = false;
+  confirmationMessage: string | null = null;
 
-  selectedTaxi: any; 
 
-  errorMessage: string = ''; 
+  selectedTaxi: any;
+
+  errorMessage: string = '';
 
   users: any[] = [];
 
@@ -52,7 +53,7 @@ export class AdminTaxiComponent implements OnInit{
   ngOnInit(): void {
 
     this.getAllUser();
-    this.getAlltaxi();  
+    this.getAlltaxi();
 
     this.loadTassisti();
 
@@ -71,9 +72,10 @@ export class AdminTaxiComponent implements OnInit{
         mobilePhone: [''],
         userType: [''],
         password: [''],
+        active: ['']
       }),
     });
-    
+
   }
 
   getAlltaxi() {
@@ -84,127 +86,132 @@ export class AdminTaxiComponent implements OnInit{
 
   getAllUser(): void {
     this.ts.getAllUser().subscribe((users: User[]) => {
-        this.users = users;
-        console.log(this.users);
+      this.users = users;
+      console.log(this.users);
     });
-}
-
-loadTassisti() {
-  this.ts.getTassisti().subscribe(t => {
-    this.tassisti = t;
-  });
-}
-
-changeSelecy(event: Event): void {
-
-  console.log('evento:', event);
-}
-
-
-saveChanges() {
-
-  const formData = this.taxiForm.value;
-  const selectedUserId = this.taxiForm.value.userPosition;
-
-  console.log('Valore di userPosition:', this.taxiForm.value.userPosition);
-
-  const form = this.taxiForm.value;
-
-  // Ottieni l'ID direttamente dall'oggetto userPosition
-  const user = formData.userPosition.id;
-
-  console.log('Valore di user:', user);
-
-    // Costruisci il corpo della richiesta da inviare
-    const requestBody = {
-      identifier: formData.identifier,
-      driver: {
-        id: formData.userPosition.id,
-        name: formData.userPosition.name,
-        lastName: formData.userPosition.lastName,
-        fiscalCode: formData.userPosition.fiscalCode,
-        email: formData.userPosition.email,
-        mobilePhone: formData.userPosition.mobilePhone,
-        userType: formData.userPosition.userType,
-        password: formData.userPosition.password,
-  
-      }
-    };
-
-  // Invia la richiesta HTTP
-  this.ts.postTaxi(requestBody).subscribe(
-    response => {
-      this.showConfirmationMessage = true;
-      this.modalService.dismissAll();
-      setTimeout(function() {
-        window.location.reload();
-    }, 3000);
-
-    },
-    error => {
-      console.log(error);
-    }
-
-
-  );
-}
-
-
-closeModal() {
-  // Chiudi la modale e reimposta lo stato del messaggio di successo
-  this.modalService.dismissAll();
-  this.showConfirmationMessage = false;
-  this.taxiForm.reset();
-}
-
-openModalWithPrecompiledData(name:string,lastName:string) {
-
-  console.log('Nome:', name + ' ' + lastName);
-
-  let user = this.taxiForm.controls['userPosition'].patchValue({name: name, lastName: lastName});
-
-  console.log('User: '+ user);
-    
-}
-
-onSelectTaxi(taxi: any) {
-  this.selectedTaxi = taxi;
-  console.log('Taxi selezionato:', this.selectedTaxi);
-
-  if (this.selectedTaxi) {
-    const userPosition = {
-      id: this.selectedTaxi.driver.id,
-      name: this.selectedTaxi.driver.name,
-      lastName: this.selectedTaxi.driver.lastName
-    };
-
-    console.log('userPosition:', userPosition);
-
-    this.taxiForm.patchValue({
-      identifier: this.selectedTaxi.identifier,
-      userPosition: userPosition,
-    });
-  } else {
-    console.error('Nessun taxi selezionato');
   }
-}
 
-updateTaxi(): void {
+  loadTassisti() {
+    this.ts.getTassisti().subscribe(t => {
+      this.tassisti = t;
+    });
+  }
 
-  // Recupera i dati dal form e ottieni l'id dell'utente selezionato
-  const formData = this.taxiForm.value;
-  const selectedUserId = this.taxiForm.value.userPosition;
+  changeSelecy(event: Event): void {
 
-  const taxiId = this.selectedTaxi.id;
+    console.log('evento:', event);
+  }
 
-  console.log('Valore di userPosition:', this.taxiForm.value.userPosition);
 
-  const form = this.taxiForm.value;
+  saveChanges() {
+    const formData = this.taxiForm.value;
+    const selectedUserId = this.taxiForm.value.userPosition;
 
-  // Ottieni l'ID direttamente dall'oggetto userPosition
-  const user = formData.userPosition.id;
+    // Ottieni l'ID direttamente dall'oggetto userPosition
+    const user = formData.userPosition.id;
 
-  console.log('Valore di user:', user);
+    // Chiamata al servizio per verificare se l'utente ha già un taxi associato
+    this.ts.hasTaxi(user).subscribe(
+      hasTaxi => {
+        if (hasTaxi) {
+          // L'utente ha già un taxi associato, gestisci l'errore come preferisci
+          this.errorMessage = 'L\'utente ha già un taxi associato.';
+          // Mostra un messaggio di errore o fai qualcos'altro
+        } else {
+          // Procedi con la creazione del taxi
+          const requestBody = {
+            identifier: formData.identifier,
+            driver: {
+              id: formData.userPosition.id,
+              name: formData.userPosition.name,
+              lastName: formData.userPosition.lastName,
+              fiscalCode: formData.userPosition.fiscalCode,
+              email: formData.userPosition.email,
+              mobilePhone: formData.userPosition.mobilePhone,
+              userType: formData.userPosition.userType,
+              password: formData.userPosition.password,
+            }
+          };
+
+          // Invia la richiesta HTTP
+          this.ts.postTaxi(requestBody).subscribe(
+            response => {
+              this.confirmationMessage = 'Taxi aggiunto Correttamente!';
+              this.modalService.dismissAll();
+              setTimeout(function () {
+                window.location.reload();
+              }, 3000);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      },
+      error => {
+        console.error('Errore nella verifica del taxi:', error);
+        // Gestisci l'errore come preferisci
+      }
+    );
+  }
+
+
+  closeModal() {
+    // Chiudi la modale e reimposta lo stato del messaggio di successo
+    this.modalService.dismissAll();
+    this.taxiForm.reset();
+  }
+
+  openModalWithPrecompiledData(name: string, lastName: string) {
+
+    console.log('Nome:', name + ' ' + lastName);
+
+    let user = this.taxiForm.controls['userPosition'].patchValue({ name: name, lastName: lastName });
+
+    console.log('User: ' + user);
+
+
+
+  }
+
+  onSelectTaxi(taxi: any) {
+    this.selectedTaxi = taxi;
+    console.log('Taxi selezionato:', this.selectedTaxi);
+
+    if (this.selectedTaxi) {
+      const userPosition = {
+        id: this.selectedTaxi.driver.id,
+        name: this.selectedTaxi.driver.name,
+        lastName: this.selectedTaxi.driver.lastName
+      };
+
+      console.log('userPosition:', userPosition);
+
+      this.taxiForm.patchValue({
+        identifier: this.selectedTaxi.identifier,
+        userPosition: userPosition,
+      });
+    } else {
+      console.error('Nessun taxi selezionato');
+    }
+  }
+
+  updateTaxi(): void {
+
+    // Recupera i dati dal form e ottieni l'id dell'utente selezionato
+    const formData = this.taxiForm.value;
+    const selectedUserId = this.taxiForm.value.userPosition;
+
+    const taxiId = this.selectedTaxi.id;
+
+    console.log('Valore di userPosition:', this.taxiForm.value.userPosition);
+
+    const form = this.taxiForm.value;
+
+    // Ottieni l'ID direttamente dall'oggetto userPosition
+    const user = formData.userPosition.id;
+
+    console.log('Valore di user:', user);
 
     // Costruisci il corpo della richiesta da inviare
     const updatePayload = {
@@ -219,19 +226,21 @@ updateTaxi(): void {
         mobilePhone: formData.userPosition.mobilePhone,
         userType: formData.userPosition.userType,
         password: formData.userPosition.password,
-  
-      }
+        active: formData.userPosition.active
+
+      },
+      active: 1
     };
-    
-  
+
+
     // Invia la richiesta HTTP per aggiornare il taxi
     this.ts.updateTaxi(taxiId, updatePayload).subscribe(
       (response) => {
-        console.log('Taxi aggiornato con successo:', response);
+        this.confirmationMessage = 'Taxi aggiornato Correttamente!';
 
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.reload();
-      }, 3000);
+        }, 3000);
         // Puoi aggiungere ulteriori logica o azioni dopo l'aggiornamento del taxi
       },
       (error) => {
@@ -241,31 +250,22 @@ updateTaxi(): void {
     );
   }
 
-  deleteTaxi(taxi: any): void {
-    // Ottieni l'ID direttamente dall'oggetto taxi
+  deactivateTaxi(taxi: any): void {
+  
     const taxiId = taxi.id;
-  
-    console.log('taxi da cancellare:', taxiId);
-  
-    // Invia la richiesta HTTP per eliminare il taxi
-    this.ts.deleteTaxi(taxiId).subscribe(
-      (response) => {
-        console.log('Taxi eliminato con successo:', response);
-        // Puoi aggiungere ulteriori logica o azioni dopo l'eliminazione del taxi
-      },
-      (error) => {
-        console.error('Errore durante l\'eliminazione del taxi:', error);
 
-        
-          // Imposta il messaggio di errore
-          this.errorMessage = 'Impossibile eliminare il taxi. È associato a una o più richieste.';
-
+  this.ts.deactivateTaxi(taxiId).subscribe(
+    (response) => {
       
-        // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
-      }
-    );
+    },
+    (error) => {
+      console.error('Errore durante la disattivazione del taxi:', error);
+      // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
+    }
+  );
+
   }
-  
+
 
 
 

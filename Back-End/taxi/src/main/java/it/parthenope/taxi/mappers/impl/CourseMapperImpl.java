@@ -11,32 +11,32 @@ public class CourseMapperImpl implements CourseMapper {
 
 
 	@Override
-	public Course dtoToModel(CourseDto courseDto) {
+    public Course dtoToModel(CourseDto courseDto) {
+        Course course = new Course();
 
-		Course course = new Course();
+        course.setId(courseDto.getId()); 
+        course.setStartLocation(courseDto.getStartLocation());
+        course.setEndLocation(courseDto.getEndLocation());
+        course.setKm(courseDto.getKm());
+        course.setRatesType(courseDto.getRatesType());
+        course.setActive(courseDto.getActive());
 
-		course.setId(courseDto.getId());
-		course.setStartLocation(courseDto.getStartLocation());
-		course.setEndLocation(courseDto.getEndLocation());
-		course.setKm(courseDto.getKm());
-		course.setRatesType(courseDto.getRatesType());
+        return course;
+    }
 
-		return course;
-	}
+    @Override
+    public CourseDto modelToDto(Course course) {
+        CourseDto courseDto = new CourseDto();
 
-	@Override
-	public CourseDto modelToDto(Course course) {
+        courseDto.setId(course.getId());
+        courseDto.setStartLocation(course.getStartLocation());
+        courseDto.setEndLocation(course.getEndLocation());
+        courseDto.setKm(course.getKm());
+        courseDto.setRatesType(course.getRatesType());
+        courseDto.setActive(course.getActive());
 
-		CourseDto courseDto = new CourseDto();
-
-		courseDto.setId(course.getId());
-		courseDto.setStartLocation(course.getStartLocation());
-		courseDto.setEndLocation(course.getEndLocation());
-		courseDto.setKm(course.getKm());
-		courseDto.setRatesType(course.getRatesType());
-
-		return courseDto;
-	}
+        return courseDto;
+    }
 
 
 

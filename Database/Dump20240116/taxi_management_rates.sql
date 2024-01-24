@@ -27,7 +27,7 @@ CREATE TABLE `rates` (
   `rates_type` varchar(45) NOT NULL,
   `amount` decimal(5,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `rates` (
 
 LOCK TABLES `rates` WRITE;
 /*!40000 ALTER TABLE `rates` DISABLE KEYS */;
-INSERT INTO `rates` VALUES (6,'u',25.00),(7,'u',15.00),(8,'u',10.00),(10,'u',25.00),(11,'u',25.00),(12,'u',25.00),(13,'u',25.00),(14,'u',25.00),(15,'u',25.00),(16,'u',25.00),(17,'u',25.00),(18,'u',25.00);
+INSERT INTO `rates` VALUES (6,'u',25.00),(7,'u',15.00),(8,'u',10.00),(10,'u',25.00),(11,'u',25.00),(12,'u',25.00),(13,'u',25.00),(14,'u',25.00),(15,'u',25.00),(16,'u',25.00),(17,'u',25.00),(18,'u',25.00),(19,'u',25.00),(20,'u',25.00),(21,'u',25.00),(22,'u',25.00),(23,'u',31.00),(24,'u',31.00),(25,'u',31.00),(27,'u',31.00);
 /*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-18 20:38:19
+-- Dump completed on 2024-01-24 22:51:04

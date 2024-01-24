@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.parthenope.taxi.dto.CourseDto;
+import it.parthenope.taxi.dto.RequestDto;
 import it.parthenope.taxi.mappers.CourseMapper;
 import it.parthenope.taxi.model.Course;
+import it.parthenope.taxi.model.Request;
 import it.parthenope.taxi.repository.CourseRepository;
 import it.parthenope.taxi.services.CourseService;
 
@@ -33,6 +35,19 @@ public class CourseServiceImpl implements CourseService{
 		
 		return allCourseDto;
 	}
+	
+	
+	
+	@Override
+    public boolean courseExist(Integer id) {
+        return courseRepository.existsById(id);
+    }
+	
+	@Override
+    public void updateCourse(CourseDto courseDto) {
+        Course course = courseMapper.dtoToModel(courseDto);
+        courseRepository.save(course);
+    } 
 	
 
 }

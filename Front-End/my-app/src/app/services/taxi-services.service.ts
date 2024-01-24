@@ -6,14 +6,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TaxiServicesService {
+
+  //Course Service
+
   getAllCourse() {
     return this.http.get<any>('http://localhost:8080/api/course')
+  }
+
+  updateCourse(courseId: number, updatePayload: any): Observable<any> {
+    return this.http.put<any>('http://localhost:8080/api/course/' + courseId, updatePayload);
   }
 
   constructor(private http: HttpClient) { }
 
   getAllTaxi(): Observable<any> {
     return this.http.get<any>('http://localhost:8080/api/taxi')
+  }
+
+  hasTaxi(driverId: number): Observable<boolean> {
+    return this.http.get<boolean>('http://localhost:8080/api/taxi/hasTaxi/' + driverId);
+
+  }
+
+  deactivateTaxi(taxiId: number): Observable<any> {
+    return this.http.put<any>('http://localhost:8080/api/taxi/deactivate/' + taxiId, null);
   }
 
   getTaxiIdByDriverId(driverId: number): Observable<number> {
@@ -55,9 +71,15 @@ export class TaxiServicesService {
     return this.http.post<any>('http://localhost:8080/api/request', body)
   }
 
+  //User Service
+
   getAllUser(): Observable<any> {
     return this.http.get<any>('http://localhost:8080/api/user')
 
+  }
+
+  deactivateUser(userId: number): Observable<any> {
+    return this.http.put<any>('http://localhost:8080/api/user/deactivate/' + userId, null);
   }
 
   getTassisti(): Observable<any[]> {

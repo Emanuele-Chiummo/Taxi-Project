@@ -23,6 +23,7 @@ public class AuthMapperImpl implements AuthMapper {
         driver.setMobilePhone(driverDto.getMobilePhone());
         driver.setUserType(driverDto.getUserType());
         driver.setPassword(driverDto.getPassword());
+        driver.setActive(driverDto.getActive());
 
         return driver;
     }
@@ -41,6 +42,7 @@ public class AuthMapperImpl implements AuthMapper {
         driverDto.setMobilePhone(driver.getMobilePhone());
         driverDto.setUserType(driver.getUserType());
         driverDto.setPassword(driver.getPassword());
+        driverDto.setActive(driver.getActive());
 
         return driverDto;
     }

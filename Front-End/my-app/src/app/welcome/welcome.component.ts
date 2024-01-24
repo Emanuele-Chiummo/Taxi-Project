@@ -241,7 +241,8 @@ export class WelcomeComponent implements OnInit {
           id: 0,
           ratesType: this.selectedCourse.ratesType.ratesType,
           amount: this.selectedCourse.ratesType.amount
-        }
+        },
+        active: 1,
       },
       date: formattedDate,
       state: 'Richiesta'

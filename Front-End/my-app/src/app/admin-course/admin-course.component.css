@@ -90,6 +90,11 @@ button.reject:hover {
     color:#fff;
 }
 
+.close{
+    border-color: transparent;
+    background-color: transparent;
+}
+
 
 @media screen and (max-width: 600px) {
 

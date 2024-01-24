@@ -31,11 +31,12 @@ CREATE TABLE `users` (
   `mobile_phone` varchar(45) NOT NULL,
   `user_type` varchar(45) DEFAULT NULL,
   `password` varchar(45) NOT NULL,
+  `active` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `CF_UNIQUE` (`fiscal_code`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `mobile_phone_UNIQUE` (`mobile_phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +45,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','AdminLastName','ADMIN123456789','admin@example.com','1234567890','admin','admin'),(2,'Cliente','ClienteLastName','CLIENTE123456789','cliente@example.com','9876543210','cliente','cliente'),(8,'Tassista','TassistaLastName','TASSISTA123456789','tassista@example.com','5555555555','tassista','tassista');
+INSERT INTO `users` VALUES (1,'Admin','AdminLastName','ADMIN123456789','admin@example.com','1234567890','admin','admin',1),(2,'Cliente','ClienteLastName','CLIENTE123456789','cliente@example.com','9876543210','cliente','cliente',1),(8,'Tassista','TassistaLastName','TASSISTA123456789','tassista@example.com','5555555555','tassista','tassista',1),(9,'Alessio','Speranza','ALLMNN0050B7839R','alessio@example.com','56748976542','tassista','alessio',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-18 20:38:19
+-- Dump completed on 2024-01-24 22:51:03

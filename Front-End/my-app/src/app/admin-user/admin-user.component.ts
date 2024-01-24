@@ -49,6 +49,22 @@ export class AdminUserComponent {
       this.getAllUser();
     }
   }
+
+  deactivateUser(User: any): void {
+  
+    const userId = User.id;
+
+  this.ts.deactivateUser(userId).subscribe(
+    (response) => {
+      
+    },
+    (error) => {
+      console.error('Errore durante la disattivazione del taxi:', error);
+      // Gestisci eventuali errori o aggiungi ulteriori azioni di gestione degli errori
+    }
+  );
+
+  }
   
   
   

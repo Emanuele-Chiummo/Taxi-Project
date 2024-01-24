@@ -36,6 +36,9 @@ public class Driver {
 	
 	@Column ( name = "password")
 	private String password;
+	
+	@Column(name = "active")
+	private Integer active;
 
 	public Integer getId() {
 		return id;
@@ -100,6 +103,16 @@ public class Driver {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
+	
 
 	
 

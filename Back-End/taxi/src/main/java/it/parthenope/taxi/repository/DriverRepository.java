@@ -14,4 +14,6 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 	
 	List<Driver> findByUserType(String userType);
 
+	List<Driver> findByActive(int active);
+
 }

@@ -9,6 +9,8 @@ public class TaxiDto {
 	private String identifier;
 
 	private Driver driver;
+	
+	private Integer active;
 
 	public Integer getId() {
 		return id;
@@ -33,5 +35,14 @@ public class TaxiDto {
 	public void setDriver(Driver driver) {
 		this.driver = driver;
 	}
+	
+	public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
 
 }

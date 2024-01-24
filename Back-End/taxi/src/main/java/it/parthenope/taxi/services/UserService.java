@@ -11,4 +11,6 @@ public interface UserService {
     List<DriverDto> getAllUsers();
 
 	List<DriverDto> getTassisti(String string);
+
+	void deactivateDriver(Integer id);
 }

@@ -3,6 +3,7 @@ package it.parthenope.taxi.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -57,19 +58,11 @@ public class TaxiServiceImpl implements TaxiService {
 
 	    return taxiMapper.modelToDto(taxi);
 	}
-
-
-	@Override
 	public List<TaxiDto> getAllTaxi() {
-		// TODO Auto-generated method stub
-		
-		List<Taxi> allTaxi = taxiRepository.findAll();
-		List<TaxiDto> allTaxiDto = new ArrayList<TaxiDto>();
-		for(Taxi myTaxy : allTaxi) {
-			allTaxiDto.add(taxiMapper.modelToDto(myTaxy));
-		}
-		
-		return allTaxiDto;
+	    List<Taxi> activeTaxis = taxiRepository.findByActive(1); // Filtra solo i taxi attivi
+	    return activeTaxis.stream()
+	            .map(taxiMapper::modelToDto)
+	            .collect(Collectors.toList());
 	}
 	
 	@Override
@@ -82,6 +75,12 @@ public class TaxiServiceImpl implements TaxiService {
            
             return null;
         }
+    }
+	
+	@Override
+    public boolean checkIfUserHasTaxi(Integer driverId) {
+        Optional<Taxi> existingTaxi = taxiRepository.findByDriverId(driverId);
+        return existingTaxi.isPresent();
     }
 	
     @Override
@@ -99,6 +98,19 @@ public class TaxiServiceImpl implements TaxiService {
     public void updateTaxi(TaxiDto taxiDto) {
         Taxi taxi = taxiMapper.dtoToModel(taxiDto);
         taxiRepository.save(taxi);
+    }
+    
+    @Override
+    
+    public void deactivateTaxi(Integer id) {
+        Optional<Taxi> taxiOptional = taxiRepository.findById(id);
+        if (taxiOptional.isPresent()) {
+            Taxi taxi = taxiOptional.get();
+            taxi.setActive(0);
+            taxiRepository.save(taxi);
+        } else {
+            throw new RuntimeException("Taxi not found with id: " + id);
+        }
     }
     
     @Override

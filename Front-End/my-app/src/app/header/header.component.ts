@@ -107,17 +107,17 @@ export class HeaderComponent {
     if (driverId && !isNaN(Number(driverId))) {
       const numericDriverId = Number(driverId);
   
-      //console.log('Driver ID:', numericDriverId);
+      console.log('Driver ID:', numericDriverId);
   
       this.taxiService.getTaxiIdByDriverId(numericDriverId).subscribe(
         (response) => {
-          //console.log('Taxi ID response:', response);
+          console.log('Taxi ID response:', response);
   
           if (response !== null && response !== undefined) {
             localStorage.setItem('taxiId', response.toString());
             this.taxi_id = response;
   
-            //console.log('Taxi ID stored in localStorage:', this.taxi_id);
+            console.log('Taxi ID stored in localStorage:', this.taxi_id);
           } else {
             console.error('Taxi ID is null or undefined');
           }
@@ -127,7 +127,7 @@ export class HeaderComponent {
         }
       );
     } else {
-      //console.log('Driver ID not found or invalid in local storage');
+      console.log('Driver ID not found or invalid in local storage');
     }
   }
   

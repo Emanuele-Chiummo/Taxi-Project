@@ -11,6 +11,17 @@ public interface CourseService {
 
  
 	List<CourseDto> getAllCourse();
+
+
+	boolean courseExist(Integer id);
+
+
+	void updateCourse(CourseDto courseDto);
+
+
+
+	
+	
 	
 
 }

@@ -16,6 +16,7 @@ public class TaxiMapperImpl implements TaxiMapper {
 		taxi.setId(taxiDto.getId());
 		taxi.setIdentifier(taxiDto.getIdentifier());
 		taxi.setDriver(taxiDto.getDriver());
+		taxi.setActive(taxiDto.getActive());
 
 		return taxi;
 	}
@@ -27,6 +28,7 @@ public class TaxiMapperImpl implements TaxiMapper {
 		taxiDto.setId(taxi.getId());
 		taxiDto.setIdentifier(taxi.getIdentifier());
 		taxiDto.setDriver(taxi.getDriver());
+		taxiDto.setActive(taxi.getActive());
 		return taxiDto;
 	}
 

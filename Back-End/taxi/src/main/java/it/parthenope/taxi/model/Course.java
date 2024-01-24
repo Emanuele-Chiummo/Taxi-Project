@@ -37,6 +37,9 @@ public class Course {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "rates_id")
     private Rates ratesType;
+    
+	@Column(name = "active")
+	private Integer active;
 
 	public Integer getId() {
 		return id;
@@ -77,6 +80,20 @@ public class Course {
 	public void setRatesType(Rates ratesType) {
 		this.ratesType = ratesType;
 	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 
 	
     

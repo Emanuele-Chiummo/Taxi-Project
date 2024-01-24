@@ -26,6 +26,9 @@ public class Taxi {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "driver_id")
 	private Driver driver;
+	
+	@Column(name = "active")
+	private Integer active;
 
 	public Integer getId() {
 		return id;
@@ -50,5 +53,16 @@ public class Taxi {
 	public void setDriver(Driver driver) {
 		this.driver = driver;
 	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+	
+	
+
 
 }

@@ -114,7 +114,8 @@ export class TassistaPendingRequestComponent {
         updatedRequest.taxi = {
           id: taxiInfo.id,  
           identifier: taxiInfo.identifier,
-          driver: taxiInfo.driver
+          driver: taxiInfo.driver,
+          active: 1
         };
         updatedRequest.state = 'Accettata';
   
