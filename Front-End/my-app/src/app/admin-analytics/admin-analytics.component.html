@@ -1,4 +1,37 @@
-<h1 style="color: white;">In attesa di Freeenk</h1>
+<div class="container mt-5">
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
+          <h1>TaxiToGo</h1>
+          <h2>Il servizio taxi più premiato di Italia</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
+<div class="grid-container">
+  <div class="chart-container text-center">
+    <h3 class="mb-3">Tratte più frequenti</h3>
+    <canvas baseChart class="chart" [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"></canvas>
+  </div>
 
-<p style="color: white;">admin-analytics works!</p>
+  <!-- Repeat the following two blocks for other charts -->
+  <div class="chart-container">
+    <!--<canvas baseChart class="chart" [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+      [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>-->
+  </div>
+
+  <div class="chart-container">
+
+    <div class="chart-container text-center" *ngIf="performance.length > 0">
+      <h3 class="mb-3">Tassisti più performanti</h3>
+      <canvas baseChart class="chart" [data]="performancePieChartData" [type]="performancePieChartType" 
+        [options]="performancePieChartOptions" [plugins]="performancePieChartPlugins"></canvas>
+    </div>
+   
+  </div>
+</div>

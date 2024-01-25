@@ -113,37 +113,6 @@ public class TaxiServiceImpl implements TaxiService {
         }
     }
     
-    @Override
-    public void deleteTaxi(Integer id) {
-        Optional<Taxi> taxiOptional = taxiRepository.findById(id);
-
-        if (taxiOptional.isPresent()) {
-            Taxi taxi = taxiOptional.get();
-
-           
-            /*List<Request> requests = requestRepository.findByTaxi(taxi);
-            for (Request request : requests) {
-              request.setTaxi(null);
-              requestRepository.save(request);
-            }*/
-            
-            List<Request> requests = requestRepository.findByTaxi(taxi);
-
-            if (!requests.isEmpty()) {
-                // Se ci sono richieste correlate, restituisci un messaggio di errore
-                throw new RuntimeException("Impossibile eliminare il taxi. È associato a una o più richieste.");
-            }
-
-            // Dissocia l'utente dal taxi
-            taxi.setDriver(null);
-            taxiRepository.save(taxi);
-
-            // Elimina il taxi
-            taxiRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Impossibile trovare il taxi con ID: " + id);
-        }
-    }
 
 
 }

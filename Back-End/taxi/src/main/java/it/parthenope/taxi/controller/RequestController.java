@@ -65,6 +65,18 @@ public class RequestController {
 	        List<RequestDto> myRequests = requestService.getMyRequests(taxiId);
 	        return new ResponseEntity<>(myRequests, HttpStatus.OK);
 	    }
+	  
+	  @GetMapping("/api/request/most-popular")
+	    public ResponseEntity<List<Object[]>> getMostPopularRoutes() {
+	        List<Object[]> popularRoutes = requestService.findMostPopularRoutes();
+	        return new ResponseEntity<>(popularRoutes, HttpStatus.OK);
+	    } 
+	  
+	  @GetMapping("/api/request/taxi-performance")
+	    public ResponseEntity<List<Object[]>> findMostTaxiCourse() {
+	        List<Object[]> popularRoutes = requestService.findMostTaxiCourse();
+	        return new ResponseEntity<>(popularRoutes, HttpStatus.OK);
+	    } 
 	
 
 

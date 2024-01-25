@@ -95,6 +95,14 @@ export class TaxiServicesService {
     return this.http.delete<any>('http://localhost:8080/api/taxi/' + taxiId);
   }
 
+  getChartData(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/request/most-popular');
+  }
+
+  getTaxiPerformace(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/request/taxi-performance');
+  }
+
 
 
 

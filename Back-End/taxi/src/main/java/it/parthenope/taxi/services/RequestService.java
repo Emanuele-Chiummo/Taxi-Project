@@ -22,6 +22,11 @@ public interface RequestService {
 
 	List<RequestDto> getMyRequests(Long taxiId);
 
+	List<Object[]> findMostPopularRoutes();
+
+	List<Object[]> findMostTaxiCourse();
+
+
 
     
     

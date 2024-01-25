@@ -18,6 +18,7 @@ import { AdminTaxiComponent } from './admin-taxi/admin-taxi.component';
 import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.component';
 import { TassistaPendingRequestComponent } from './tassista-pending-request/tassista-pending-request.component';
 import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-request.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,8 @@ import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-re
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
+    NgChartsModule,
+    
   ],
   providers: [
     {

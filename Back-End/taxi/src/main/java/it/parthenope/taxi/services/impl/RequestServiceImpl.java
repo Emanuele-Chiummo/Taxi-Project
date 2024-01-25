@@ -74,6 +74,18 @@ public class RequestServiceImpl implements RequestService{
                 .map(requestMapper::modelToDto)
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<Object[]> findMostPopularRoutes() {
+        return requestRepository.findMostPopularRoutes();
+    }
+    
+    @Override
+    public List<Object[]> findMostTaxiCourse() {
+        return requestRepository.findMostTaxiCourse();
+    }
+    
+    
 
     
 

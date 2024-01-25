@@ -87,15 +87,6 @@ public class TaxiController {
 	    return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("api/taxi/{id}")
-    public ResponseEntity<String> deleteTaxi(@PathVariable Integer id) {
-        try {
-            taxiService.deleteTaxi(id);
-            return new ResponseEntity<>("Taxi eliminato con successo", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Errore durante l'eliminazione del taxi", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 	
 	
 
