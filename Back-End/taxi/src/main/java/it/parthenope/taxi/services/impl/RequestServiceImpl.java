@@ -85,6 +85,11 @@ public class RequestServiceImpl implements RequestService{
         return requestRepository.findMostTaxiCourse();
     }
     
+    @Override
+    public List<Object[]> findMostTaxiAmount() {
+        return requestRepository.findMostTaxiAmount();
+    }
+    
     
 
     

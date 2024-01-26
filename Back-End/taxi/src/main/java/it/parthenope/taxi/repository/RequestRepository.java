@@ -30,6 +30,14 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("SELECT r.taxi.identifier, COUNT(r) FROM Request r WHERE r.state = 'Accettata' AND r.taxi IS NOT NULL GROUP BY r.taxi.id ORDER BY COUNT(r) DESC")
     List<Object[]> findMostTaxiCourse();
     
+    @Query("SELECT r.taxi.identifier, r.date, SUM(r.course.ratesType.amount) " +
+    	       "FROM Request r " +
+    	       "WHERE r.state = 'Accettata' AND r.taxi IS NOT NULL " +
+    	       "GROUP BY r.taxi.identifier, r.date " +
+    	       "ORDER BY SUM(r.course.ratesType.amount) DESC")
+    	List<Object[]> findMostTaxiAmount();
+
+    
     /*@Query("SELECT r.taxi.identifier , SUM(r.course.ratesType.amount) FROM Request r WHERE r.state = 'Accettata' AND r.taxi IS NOT NULL GROUP BY r.taxi.id ORDER BY COUNT(r) DESC")
     List<Object[]> findMostTaxiAmount();*/
 

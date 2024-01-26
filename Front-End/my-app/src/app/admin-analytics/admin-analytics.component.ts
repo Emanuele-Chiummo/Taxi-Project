@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { TaxiServicesService } from '../services/taxi-services.service';
 
@@ -14,6 +14,8 @@ export class AdminAnalyticsComponent implements OnInit {
   popularCourse: any[] = [];
 
   performance: any[] = [];
+
+  entry: any[] = [];
 
   // Primo pie chart
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -79,8 +81,8 @@ export class AdminAnalyticsComponent implements OnInit {
     this.ts.getTaxiPerformace().subscribe(
       (response) => {
         this.performance = response;
-        console.log('Taxi Performanti : ', this.performance);
         this.updatePerformanceChartData();
+        this.updateEntryChartData();
       },
       (error) => {
         console.log(error);
@@ -91,12 +93,81 @@ export class AdminAnalyticsComponent implements OnInit {
       (response) => {
         this.popularCourse = response;
         this.updateChartData();
+        
+
       },
       (error) => {
         console.log(error);
       }
     );
+
+    this.ts.getEntryPerformance().subscribe( 
+      (response) => {
+        this.entry = response;
+        this.updateEntryChartData();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
   }
+
+  //Bar Chart 
+
+  public barChartOptionsEntry: ChartConfiguration['options'] = {
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 10,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
+    },
+  };
+
+  public barChartTypeEntry: ChartType = 'bar';
+  public barChartPluginsEntry = [DatalabelsPlugin];
+
+  public barChartDataEntry: ChartData<'bar'> = {
+    //labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
+    labels: this.entry.map((item) => item[0]),
+    datasets: [
+      
+      { data: this.entry.map((item) => item[0]), label: 'Performance'},
+      
+      
+      //{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+    ],
+  };
+
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+  }
+
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+  }
+
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
@@ -112,16 +183,24 @@ export class AdminAnalyticsComponent implements OnInit {
   }
 
   private updatePerformanceChartData(): void {
-    // Aggiorna il terzo grafico con i dati di performance
     const labels = this.performance.map((item) => item[0]);
     const dataValues = this.performance.map(item => +item[1]);
 
     this.performancePieChartData.labels = labels;
 
-    console.log('Data Values : ', dataValues);
-
-    console.log('labels : ', labels);
     this.performancePieChartData.datasets[0].data = dataValues;
+
+    this.chart?.update();
+  }
+
+  private updateEntryChartData(): void {
+
+    const labels = this.entry.map((item) => item[1]);
+    const dataValues = this.entry.map(item => +item[2]);
+
+    this.barChartDataEntry.labels = labels;
+
+    this.barChartDataEntry.datasets[0].data = dataValues;
 
     this.chart?.update();
   }

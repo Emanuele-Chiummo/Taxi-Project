@@ -26,6 +26,8 @@ public interface RequestService {
 
 	List<Object[]> findMostTaxiCourse();
 
+	List<Object[]> findMostTaxiAmount();
+
 
 
     

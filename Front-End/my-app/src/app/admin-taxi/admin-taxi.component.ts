@@ -130,7 +130,9 @@ export class AdminTaxiComponent implements OnInit {
               mobilePhone: formData.userPosition.mobilePhone,
               userType: formData.userPosition.userType,
               password: formData.userPosition.password,
-            }
+              active:formData.userPosition.active,
+            },
+            active: 1
           };
 
           // Invia la richiesta HTTP

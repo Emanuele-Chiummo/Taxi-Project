@@ -76,6 +76,12 @@ public class RequestController {
 	    public ResponseEntity<List<Object[]>> findMostTaxiCourse() {
 	        List<Object[]> popularRoutes = requestService.findMostTaxiCourse();
 	        return new ResponseEntity<>(popularRoutes, HttpStatus.OK);
+	    }
+	  
+	  @GetMapping("/api/request/entry-performance")
+	    public ResponseEntity<List<Object[]>> findMostTaxiAmount() {
+	        List<Object[]> popularRoutes = requestService.findMostTaxiAmount();
+	        return new ResponseEntity<>(popularRoutes, HttpStatus.OK);
 	    } 
 	
 
