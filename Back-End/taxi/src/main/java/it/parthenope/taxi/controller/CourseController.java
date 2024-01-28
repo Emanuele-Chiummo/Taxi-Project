@@ -74,7 +74,7 @@ public class CourseController {
 	            @RequestParam String endLocation) {
 	        boolean exists = courseService.courseExistsWithLocations(startLocation, endLocation);
 	        return ResponseEntity.ok(exists);
-	    }
+	   }
 	
 
 

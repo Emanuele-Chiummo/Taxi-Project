@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import it.parthenope.taxi.dto.DriverDto;
+import it.parthenope.taxi.model.Driver;
 
 @Service
 public interface UserService {
@@ -13,4 +14,6 @@ public interface UserService {
 	List<DriverDto> getTassisti(String string);
 
 	void deactivateDriver(Integer id);
+
+	Driver createUser(DriverDto driverDto);
 }

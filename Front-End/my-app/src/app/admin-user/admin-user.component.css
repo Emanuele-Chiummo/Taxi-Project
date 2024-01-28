@@ -1,5 +1,5 @@
 .add-user{
-    margin-top: 125px;
+    margin-top: 10em;
     margin-bottom: 50px;
 
 }
@@ -88,6 +88,11 @@ button.reject {
 button.reject:hover {
     background-color: #c9302c;
     color:#fff;
+}
+
+.close{
+    border-color: transparent;
+    background-color: transparent;
 }
 
 

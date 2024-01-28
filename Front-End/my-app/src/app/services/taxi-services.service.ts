@@ -111,6 +111,10 @@ export class TaxiServicesService {
 
   }
 
+  createuser(body: any) {
+    return this.http.post<any>('http://localhost:8080/api/user', body)
+  }
+
   deactivateUser(userId: number): Observable<any> {
     return this.http.put<any>('http://localhost:8080/api/user/deactivate/' + userId, null);
   }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController; // Aggiungi questa importazione
 
+import it.parthenope.taxi.dto.CourseDto;
 import it.parthenope.taxi.dto.DriverDto;
 import it.parthenope.taxi.services.AuthService;
 import it.parthenope.taxi.services.UserService;
@@ -66,6 +67,14 @@ public class AuthController {
 
         return ResponseEntity.ok(tassisti);
     }
+    
+    @PostMapping("/api/user")
+	public ResponseEntity<DriverDto> createRequest(@RequestBody DriverDto driverDto) {
+
+    	userService.createUser(driverDto);
+		return new ResponseEntity<DriverDto>(driverDto, HttpStatus.CREATED);
+		
+	}
     
     @PutMapping("/api/user/deactivate/{id}")
     public ResponseEntity<Void> deactivateDriver(@PathVariable Integer id) {

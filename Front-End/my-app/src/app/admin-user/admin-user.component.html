@@ -1,7 +1,7 @@
 
 
 <div class="col-md-4">
-  <button type="button" class="btn btn-warning btn-block add-user" >Aggiungi Utenti</button>
+  <button type="button" class="btn btn-warning btn-block add-user" data-bs-toggle="modal" data-bs-target="#createUser">Aggiungi Utenti</button>
 </div>
 
 <div class="table-container">
@@ -49,26 +49,79 @@
   </div>
 </div>
 
-<!--Course-->
 
-<div *ngIf="showTableCourse" class="table-container">
-  <table class="table table-bordered table-yellow" style="width: 60em;">
-    <thead>
-      <tr class="table-dark">
-        <th>Tratta</th>
-        <th>Tariffa</th>
-        <th>Km</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let course of course">
 
-        <td>{{ course.startLocation.name + '-' + course.endLocation.name}}</td>
-        <td>{{ course.ratesType.amount + '€'}}</td>
-        <td>{{ course.km + 'km' }}</td>
-        <td><button class="btn btn-primary">Aggiorna tariffe</button></td>
-      </tr>
-    </tbody>
-  </table>
+<!--Create User Modal-->
+
+<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Crea Corsa</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+          </span>
+        </button>
+
+        
+      </div>
+      <form [formGroup]="createUserForm">
+        <div class="modal-body">
+          <div class="text-end"> <!-- Aggiunto il container per allineare a destra -->
+        </div>
+          <!-- Identifier Input Field -->
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+          </div>
+          
+
+          <div class="mb-3">
+            <label for="cognome" class="form-label">Cognome</label>
+            <input type="text" class="form-control" id="cognome" formControlName="cognome">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email">
+          </div>
+
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+          </div>
+
+          <div class="mb-3">
+            <label for="costo" class="form-label">Tipo</label>
+            <select class="form-select" id="tipo" formControlName="tipo">
+              <option value="Admin">Admin</option>
+              <option value="Tassista">Tassista</option>
+              <option value="Cliente">Cliente</option>
+            </select>
+          </div>
+
+          
+
+          <div *ngIf="confirmationMessage" class="alert alert-success mb-3" role="alert">
+            {{ confirmationMessage }}
+        </div>
+
+        <!--<div *ngIf="errorMessage" class="alert alert-danger mb-3" role="alert">
+          {{ errorMessage }}
+      </div>-->
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary " (click)="createUser()">Crea</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
