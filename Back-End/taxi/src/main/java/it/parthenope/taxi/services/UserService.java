@@ -16,4 +16,8 @@ public interface UserService {
 	void deactivateDriver(Integer id);
 
 	Driver createUser(DriverDto driverDto);
+
+	boolean userExist(Integer id);
+
+	void updateUser(DriverDto driverDto);
 }

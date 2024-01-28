@@ -47,6 +47,17 @@ public class UserServiceImpl implements UserService {
         return driverRepository.save(driver);
     }
     
+    @Override
+    public boolean userExist(Integer id) {
+        return driverRepository.existsById(id);
+    }
+	
+	@Override
+    public void updateUser(DriverDto driverDto) {
+        Driver user = authMapper.dtoToModel(driverDto);
+        driverRepository.save(user);
+    }
+    
    
     
     @Override

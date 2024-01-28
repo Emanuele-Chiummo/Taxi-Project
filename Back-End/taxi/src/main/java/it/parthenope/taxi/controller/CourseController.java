@@ -46,9 +46,6 @@ public class CourseController {
         if (!courseService.courseExist(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        System.out.println("StartLocation"+courseDto.getStartLocation());
-        System.out.println("EndLocation"+courseDto.getEndLocation());
         courseService.updateCourse(courseDto);
 
         return new ResponseEntity<>(courseDto, HttpStatus.OK);

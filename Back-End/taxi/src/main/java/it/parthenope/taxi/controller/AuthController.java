@@ -76,6 +76,17 @@ public class AuthController {
 		
 	}
     
+    @PutMapping("/api/user/{id}")
+    public ResponseEntity<DriverDto> updateUser(@PathVariable Integer id, @RequestBody DriverDto driverDto) {
+
+        if (!userService.userExist(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        userService.updateUser(driverDto);
+
+        return new ResponseEntity<>(driverDto, HttpStatus.OK);
+    }
+    
     @PutMapping("/api/user/deactivate/{id}")
     public ResponseEntity<Void> deactivateDriver(@PathVariable Integer id) {
         userService.deactivateDriver(id);
