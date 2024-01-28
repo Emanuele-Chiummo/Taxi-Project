@@ -239,12 +239,13 @@ export class AdminCourseComponent implements OnInit{
           console.log('Course exists:', courseExists);
   
           if (courseExists) {
-            console.log('Course with the same locations already exists.');
+            //console.log('Course with the same locations already exists.');
             this.showErrorMessage('La tratta esiste già', 3000);
           } else {
             this.ts.createCourse(createBody).subscribe(
               (response) => {
-                console.log('Course created successfully:', response);
+                this.confirmationMessage = 'Corsa creata correttamente!';
+                //console.log('Course created successfully:', response);
                 setTimeout(function() {
                   window.location.reload();
               }, 3000);

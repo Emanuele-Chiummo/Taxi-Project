@@ -190,6 +190,10 @@ export class AdminUserComponent {
 
   this.ts.deactivateUser(userId).subscribe(
     (response) => {
+
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
       
     },
     (error) => {
