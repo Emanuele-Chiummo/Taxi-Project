@@ -101,7 +101,6 @@ public class TaxiServiceImpl implements TaxiService {
     }
     
     @Override
-    
     public void deactivateTaxi(Integer id) {
         Optional<Taxi> taxiOptional = taxiRepository.findById(id);
         if (taxiOptional.isPresent()) {

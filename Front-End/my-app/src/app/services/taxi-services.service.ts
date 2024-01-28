@@ -17,6 +17,39 @@ export class TaxiServicesService {
     return this.http.put<any>('http://localhost:8080/api/course/' + courseId, updatePayload);
   }
 
+  createCourse(body: any) {
+    return this.http.post<any>('http://localhost:8080/api/course', body)
+  }
+
+  checkcourseExistsWithLocations(startLocation: string, endLocation: string): Observable<boolean> {
+    const params = {
+      startLocation: startLocation,
+      endLocation: endLocation
+    };
+    return this.http.get<boolean>('http://localhost:8080/api/course/exists', { params });
+  }
+
+  //Location Service
+
+  getLocationIdByName(locationName: string): Observable<number> {
+
+    return this.http.get<number>('http://localhost:8080/api/location/' + locationName);
+  }
+
+  getAllLocation(): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/api/location')
+  }
+
+  createLocation(body: any) {
+    return this.http.post<any>('http://localhost:8080/api/location', body)
+  }
+
+
+
+  deactivateCourse(courseId: number): Observable<any> {
+    return this.http.put<any>('http://localhost:8080/api/course/deactivate/' + courseId, null);
+  }
+
   constructor(private http: HttpClient) { }
 
   getAllTaxi(): Observable<any> {

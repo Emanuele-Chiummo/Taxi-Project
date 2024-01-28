@@ -1,5 +1,6 @@
 package it.parthenope.taxi.dto;
 
+
 public class LocationDto {
 
     private Integer id;
@@ -29,4 +30,5 @@ public class LocationDto {
     public void setGps(String gps) {
         this.gps = gps;
     }
+    
 }
