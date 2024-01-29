@@ -144,41 +144,6 @@ export class WelcomeComponent implements OnInit {
     this.detTaxi = []
   }
 
-
-
-  /* CourseMethod() {
-    this.ts.getAllDestinations().subscribe(
-      response => {
-        response.forEach((element: any) => {
-          this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
-        });
-
-      },
-      error => {
-        console.error('Errore nella chiamata API:', error);
-      }
-    );
-  } */
-
-  /*CourseMethod() {
-    this.ts.getAllDestinations().subscribe(
-      response => {
-        response.forEach((element: any) => {
-          this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
-        });
-        //if corrisponde alla selezione
-        // Memorizza la corsa selezionata (usando la prima corsa come esempio)
-        this.selectedCourse = response[0];
-      },
-      error => {
-        console.error('Errore nella chiamata API:', error);
-      }
-    );
-  }*/
-
-
-
-
   getAllRequest() {
     console.log(this.cliente);
     this.ts.getAllRequest().subscribe(
@@ -190,78 +155,6 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  /*onChangeSelect(event: Event) {
-    console.log(this.richiesteForm.controls['partenza_destinazione'].value.split('_'), event);
-    const selectedValue = this.richiesteForm.controls['partenza_destinazione'].value.split('_');
-    this.course = selectedValue[1];
-    this.rate = selectedValue[0];
-
-  }
-
-
-
-
-  dettaglioRequest(request: any) {
-    this.detTaxi.push(request)
-  } */
-
-
-
-  /*paga() {
-    this.formsReset()
-  } */
-
-
-  /*paymentSuccess() {
-
-    console.log(this.selectedCourse)
-
-    if (!this.selectedCourse) {
-      console.error('Errore: Nessuna corsa selezionata.');
-      return;
-    }
-  
-    let formattedDate = `${this.data}T${this.ora}:00`;
-    let body = {
-      id: 0,
-      course: {
-        id: this.selectedCourse.id,
-        startLocation: {
-          id: this.selectedCourse.startLocation.id,
-          name: this.selectedCourse.startLocation.name,
-          gps: this.selectedCourse.startLocation.gps
-        },
-        endLocation: {
-          id: this.selectedCourse.endLocation.id,
-          name: this.selectedCourse.endLocation.name,
-          gps: this.selectedCourse.startLocation.gps
-        },
-        km: this.selectedCourse.km,
-        ratesType: {
-          id: 0,
-          ratesType: this.selectedCourse.ratesType.ratesType,
-          amount: this.selectedCourse.ratesType.amount
-        },
-        active: 1,
-      },
-      date: formattedDate,
-      state: 'Richiesta'
-    };
-  
-    this.ts.createRequest(body).subscribe(
-      x => {
-        console.log(x);
-        this.formsReset();
-        this.payment = true;
-        setTimeout(() => {
-          this.payment = false;
-        }, 3000);
-      },
-      error => {
-        console.error('Errore nella chiamata API:', error);
-      }
-    );
-  }*/
 
   getAllDestinations() {
 
@@ -278,13 +171,13 @@ export class WelcomeComponent implements OnInit {
   }
 
   onDestinationChange() {
-    //console.log('Oggetto selezionato:', this.selectedDestination);
+    
 
     if (this.selectedDestination) {
       
       this.selectedCourse = this.selectedDestination;
 
-      console.log('Corsa selezionata:', this.selectedCourse);
+      //console.log('Corsa selezionata:', this.selectedCourse);
     } else {
       console.error('Opzione non valida.');
     }
@@ -301,17 +194,10 @@ export class WelcomeComponent implements OnInit {
     this.ora = event
   }
 
-
-
-
   createRequest() {
     const formValue = this.richiesteForm.value;
     const selectedOption = this.selectedCourse;
     let formattedDate = `${this.data}T${this.ora}:00`;
-
-    console.log('Valore del form:', formValue);
-
-    console.log('Opzione selezionata:', selectedOption);
   
     if (selectedOption) {
       const requestBody = {
@@ -341,14 +227,13 @@ export class WelcomeComponent implements OnInit {
         state: "Richiesta"
       };
   
-      // Ora hai il tuo corpo della richiesta pronto per essere utilizzato
-      console.log('Corpo della richiesta:', requestBody);
+      
+      //console.log('Corpo della richiesta:', requestBody);
   
-      // Puoi poi chiamare il tuo servizio per effettuare la richiesta HTTP
       this.ts.createRequest(requestBody).subscribe(
         response => {
-          console.log('Richiesta creata con successo:', response);
-          // Puoi fare ulteriori azioni qui in base alla risposta del backend
+          //console.log('Richiesta creata con successo:', response);
+
         },
         error => {
           console.error('Errore durante la creazione della richiesta:', error);
