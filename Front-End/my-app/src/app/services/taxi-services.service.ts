@@ -101,6 +101,7 @@ export class TaxiServicesService {
 
 
   createRequest(body: any) {
+    console.log(body)
     return this.http.post<any>('http://localhost:8080/api/request', body)
   }
 

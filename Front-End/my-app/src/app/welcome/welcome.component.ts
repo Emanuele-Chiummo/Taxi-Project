@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service.service';
 import { FormControl, FormGroup, FormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TaxiServicesService } from '../services/taxi-services.service';
-import { log } from 'console';
+import { error, log } from 'console';
 import { UserServiceService } from '../services/user-service.service';
 
 export interface Root {
@@ -38,15 +38,17 @@ export class WelcomeComponent implements OnInit {
   cliente: any = false
   tassista: any = false
 
-  currentUser: any ;
-  
+  currentUser: any;
+
   $: any;
   request: any[] = []
   taxi: any[] = []
   combinedOptions: { value: number, label: string }[] = [];
-  destinations: { destination: any, rate: number }[] = []
+  destination: any[] = []
 
   selectedCourse: any; // Sostituisci 'any' con il tipo appropriato della tua corsa
+
+  selectedDestination: any;
 
   idUser: any[] = []
 
@@ -65,7 +67,7 @@ export class WelcomeComponent implements OnInit {
   course: any;
   taxi_id: any;
   user: any;
-  constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder,private userService: UserServiceService) {
+  constructor(private authService: AuthService, private router: Router, private ts: TaxiServicesService, private fb: FormBuilder, private userService: UserServiceService) {
     this.richiesteForm = this.fb.group({
       partenza_destinazione: ['', [Validators.required]],
       data: ['', [Validators.required]],
@@ -83,7 +85,9 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    this.selectedDestination = null;
+
+
     const currentUserValue = localStorage.getItem('currentUser');
     this.currentUser = currentUserValue !== null ? parseInt(currentUserValue, 10) : 0;
 
@@ -118,7 +122,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   formsReset() {
-    this.destinations = []
+    //this.destination = []
     this.richiesteForm.reset()
     this.paymentForm.reset()
   }
@@ -156,13 +160,13 @@ export class WelcomeComponent implements OnInit {
     );
   } */
 
-  CourseMethod() {
+  /*CourseMethod() {
     this.ts.getAllDestinations().subscribe(
       response => {
         response.forEach((element: any) => {
           this.destinations.push({ destination: element.startLocation.name + ' - ' + element.endLocation.name, rate: element.ratesType.amount })
         });
-  
+        //if corrisponde alla selezione
         // Memorizza la corsa selezionata (usando la prima corsa come esempio)
         this.selectedCourse = response[0];
       },
@@ -170,10 +174,10 @@ export class WelcomeComponent implements OnInit {
         console.error('Errore nella chiamata API:', error);
       }
     );
-  }
+  }*/
 
 
-  
+
 
   getAllRequest() {
     console.log(this.cliente);
@@ -186,35 +190,31 @@ export class WelcomeComponent implements OnInit {
     );
   }
 
-  onChangeSelect(event: Event) {
+  /*onChangeSelect(event: Event) {
+    console.log(this.richiesteForm.controls['partenza_destinazione'].value.split('_'), event);
     const selectedValue = this.richiesteForm.controls['partenza_destinazione'].value.split('_');
     this.course = selectedValue[1];
-    this.rate = selectedValue[0]
+    this.rate = selectedValue[0];
+
   }
 
-  onChangeSelectD(event: Event) {
-    event = this.richiesteForm.controls['data'].value
-    this.data = event
-  }
 
-  onChangeSelectH(event: Event) {
-    event = this.richiesteForm.controls['ora'].value
-    this.ora = event
-  }
 
 
   dettaglioRequest(request: any) {
     this.detTaxi.push(request)
-  }
+  } */
 
-  
 
-  paga() {
+
+  /*paga() {
     this.formsReset()
-  }
+  } */
 
 
-  paymentSuccess() {
+  /*paymentSuccess() {
+
+    console.log(this.selectedCourse)
 
     if (!this.selectedCourse) {
       console.error('Errore: Nessuna corsa selezionata.');
@@ -261,7 +261,109 @@ export class WelcomeComponent implements OnInit {
         console.error('Errore nella chiamata API:', error);
       }
     );
+  }*/
+
+  getAllDestinations() {
+
+    this.ts.getAllDestinations().subscribe(
+      response => {
+        this.destination = response;
+        console.log('Destinazioni:', this.destination);
+      },
+      error => {
+        console.error('Errore nella chiamata API:', error);
+      }
+    );
+
   }
+
+  onDestinationChange() {
+    //console.log('Oggetto selezionato:', this.selectedDestination);
+
+    if (this.selectedDestination) {
+      
+      this.selectedCourse = this.selectedDestination;
+
+      console.log('Corsa selezionata:', this.selectedCourse);
+    } else {
+      console.error('Opzione non valida.');
+    }
+
+  }
+
+  onChangeSelectD(event: Event) {
+    event = this.richiesteForm.controls['data'].value
+    this.data = event
+  }
+
+  onChangeSelectH(event: Event) {
+    event = this.richiesteForm.controls['ora'].value
+    this.ora = event
+  }
+
+
+
+
+  createRequest() {
+    const formValue = this.richiesteForm.value;
+    const selectedOption = this.selectedCourse;
+    let formattedDate = `${this.data}T${this.ora}:00`;
+
+    console.log('Valore del form:', formValue);
+
+    console.log('Opzione selezionata:', selectedOption);
+  
+    if (selectedOption) {
+      const requestBody = {
+        id: 0,
+        course: {
+          id: selectedOption.id,
+          startLocation: {
+            id: selectedOption.startLocation.id,
+            name: selectedOption.startLocation.name,
+            gps: selectedOption.startLocation.gps
+          },
+          endLocation: {
+            id: selectedOption.endLocation.id,
+            name: selectedOption.endLocation.name,
+            gps: selectedOption.endLocation.gps
+          },
+          km: selectedOption.km,
+          ratesType: {
+            id: selectedOption.ratesType.id,
+            ratesType: selectedOption.ratesType.ratesType,
+            amount: selectedOption.ratesType.amount
+          },
+          active: selectedOption.active
+        },
+        taxi: null,
+        date: formattedDate,
+        state: "Richiesta"
+      };
+  
+      // Ora hai il tuo corpo della richiesta pronto per essere utilizzato
+      console.log('Corpo della richiesta:', requestBody);
+  
+      // Puoi poi chiamare il tuo servizio per effettuare la richiesta HTTP
+      this.ts.createRequest(requestBody).subscribe(
+        response => {
+          console.log('Richiesta creata con successo:', response);
+          // Puoi fare ulteriori azioni qui in base alla risposta del backend
+        },
+        error => {
+          console.error('Errore durante la creazione della richiesta:', error);
+        }
+      );
+    } else {
+      console.error('Opzione non valida.');
+    }
+  }
+  
+
+
+
+
+
 
   navigateToUserPage() {
     this.router.navigate(['/user']);

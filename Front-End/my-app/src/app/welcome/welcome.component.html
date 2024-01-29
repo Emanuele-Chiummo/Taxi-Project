@@ -98,8 +98,8 @@
     <hr class="my-4">
     <p>Altro testo informativo.</p>
     <p class="lead">
-      <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste"
-        (click)="CourseMethod()">Prenota un taxi</a>
+      <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#richieste" (click)="getAllDestinations()"
+        >Prenota un taxi</a>
     </p>
   </div>
 </div>
@@ -191,24 +191,26 @@
           <div class="mb-3">
             <label for="partenza_destinazione" class="text-black">Seleziona la tratta<span
                 class="text-danger">*</span></label>
-            <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione"
-              (change)="onChangeSelect($event)">
-              <option *ngFor="let option of destinations" [value]="option.rate + '_' + option.destination">{{
-                option.destination }}</option>
-            </select>
+                <select formControlName="partenza_destinazione" class="form-select" id="partenza_destinazione" (change)="onDestinationChange()" [(ngModel)]="selectedDestination">
+                  <option *ngFor="let option of destination" [ngValue]="option">
+                    {{ option.startLocation.name }} - {{ option.endLocation.name }}
+                  </option>
+                </select>
+                
+                              
           </div>
           <div class="mb-3">
-            <label for="data" class="text-black">Data<span class="text-danger">*</span></label>
+            <label for="data" class="text-black">Data<span class="text-danger" >*</span></label>
             <input type="date" formControlName="data" class="form-control" id="data" (change)="onChangeSelectD($event)">
           </div>
           <div class="mb-3">
-            <label for="ora" class="text-black">Ora<span class="text-danger">*</span></label>
+            <label for="ora" class="text-black">Ora<span class="text-danger" >*</span></label>
             <input type="time" formControlName="ora" class="form-control" id="ora" (change)="onChangeSelectH($event)">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close"
-            (click)="formsReset()" (click)="paga()" [disabled]="richiesteForm.invalid"><a data-bs-toggle="modal"
+            (click)="formsReset()" [disabled]="richiesteForm.invalid"><a data-bs-toggle="modal"
               data-bs-target="#pay">Prenota</a></button>
         </div>
       </form>
@@ -244,7 +246,7 @@
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-warning" [disabled]="paymentForm.invalid" data-bs-dismiss="modal"
-            aria-label="Close" (click)="paymentSuccess()">Effettua il pagamento</button>
+            aria-label="Close" (click)="createRequest()">Effettua il pagamento</button>
         </div>
       </form>
     </div>
