@@ -1,7 +1,16 @@
-<div class="table-container">
-    <!--<button (click)="getMyRequests()" class="btn btn-warning d-inline-block my-button">Aggiorna</button>-->
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="activeTab === 'web'" (click)="changeTab('web')">Richieste Web</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="activeTab === 'email'" (click)="changeTab('email')">Richieste Email</a>
+  </li>
+</ul>
 
-<table *ngIf="request && request.length > 0">
+<div class="table-container">
+  <!--<button (click)="getMyRequests()" class="btn btn-warning d-inline-block my-button">Aggiorna</button>-->
+
+  <table *ngIf="request && request.length > 0 && activeTab === 'web'">
     <thead>
       <tr>
         <th scope="col">ID Richiesta</th>
@@ -12,45 +21,99 @@
         <th scope="col">Data</th>
         <th scope="col">Stato</th>
         <th>Actions</th>
-        
+
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let r of request">
+      <tr *ngFor="let r of request">
         <td data-label="ID Richiesta">{{ r.course.id }}</td>
         <td data-label="Partenza">{{ r.course.startLocation.name }}</td>
         <td data-label="Destinazione">{{ r.course.endLocation.name }}</td>
         <td data-label="Chilometri">{{ r.course.km }}</td>
         <td data-label="Costo">{{ r.course.ratesType.amount +'€'}}</td>
         <td data-label="Data">{{ r.date }}</td>
-        <td data-label="Stato" [ngStyle]="{'background-color': r.state === 'Accettata' ? '#5cb85c' : 'inherit', 'color': 'white'}">{{ r.state }}</td>
-        
-        
+        <td data-label="Stato"
+          [ngStyle]="{'background-color': r.state === 'Accettata' ? '#5cb85c' : 'inherit', 'color': 'white'}">{{ r.state
+          }}</td>
+
+
         <td>
-            <div class="btn-group">
-                <button type="button" title="accetta" class="actions accept" (click)="acceptRequest(r.id)"
-                  *ngIf="r.state === 'Rifiutata' || r.state != 'Accettata'">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-check-lg" viewBox="0 0 16 16">
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
-                  </svg>
-                </button>
-                <button type="button" title="rifiuta" class="actions reject" (click)="rejectRequest(r.id)"
-                  *ngIf="r.state === 'Accettata' || r.state != 'Rifiutata'">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path
-                      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                  </svg>
-                </button>
-              </div>
-          </td>
+          <div class="btn-group">
+            <button type="button" title="accetta" class="actions accept" (click)="acceptRequest(r.id)"
+              *ngIf="r.state === 'Rifiutata' || r.state != 'Accettata'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-lg"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+              </svg>
+            </button>
+            <button type="button" title="rifiuta" class="actions reject" (click)="rejectRequest(r.id)"
+              *ngIf="r.state === 'Accettata' || r.state != 'Rifiutata'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg"
+                viewBox="0 0 16 16">
+                <path
+                  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+              </svg>
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
-  <div *ngIf="!request || request.length === 0">
+  <div *ngIf="!request || request.length === 0 && activeTab != 'email'">
     <h6 style="color:#fff; text-align: center; padding: 50px;">Nessuna richiesta disponibile.</h6>
   </div>
 </div>
 
+<!--Email-->
+
+
+<table *ngIf="email && email.length > 0 && activeTab === 'email'">
+  <thead>
+    <tr>
+      <th scope="col">ID Richiesta</th>
+      <th scope="col">Richiedente</th>
+      <th scope="col">Oggetto</th>
+      <th scope="col">Richiesta</th>
+      <th scope="col">Stato</th>
+
+      <th>Actions</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of email">
+      <td data-label="ID Richiesta">{{ r.id }}</td>
+      <td data-label="Richiedente">{{ r.sender }}</td>
+      <td data-label="Oggetto">{{ r.subject }}</td>
+      <td data-label="Richiesta">{{ r.body }}</td>
+      <td data-label="Stato"
+          [ngStyle]="{'background-color': r.state === 'Accettata' ? '#5cb85c' : 'inherit', 'color': 'white'}">{{ r.state
+          }}</td>
+
+
+
+      <td>
+        <div class="btn-group">
+          <button type="button" title="accetta" class="actions accept" (click)="acceptEmail(r.id)"  *ngIf="r.state === 'Rifiutata' || r.state != 'Accettata'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-lg"
+              viewBox="0 0 16 16">
+              <path
+                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+            </svg>
+          </button>
+          <button type="button" title="rifiuta" class="actions reject" (click)="rejectEmail(r.id)" *ngIf="r.state === 'Accettata' || r.state != 'Rifiutata'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg"
+              viewBox="0 0 16 16">
+              <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="!email || email.length === 0 && activeTab != 'web'">
+  <h6 style="color:#fff; text-align: center; padding: 50px;">Nessuna richiesta disponibile.</h6>
+</div>

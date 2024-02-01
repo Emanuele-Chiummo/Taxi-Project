@@ -2,10 +2,12 @@ package it.parthenope.taxi.email;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import it.parthenope.taxi.services.EmailService;
 import jakarta.mail.Session;
 
 @Configuration
@@ -23,6 +25,9 @@ public class EmailConfiguration {
 
     @Value("fqnf fszy bpvt crlg")
     private String emailPassword;
+    
+    @Autowired
+    EmailService emailService;
 
     @Bean
     public Session mailSession() {
@@ -41,6 +46,7 @@ public class EmailConfiguration {
 
     @Bean
     public EmailListener emailListener() {
-        return new EmailListener(mailSession(), emailUsername, emailPassword);
+        return new EmailListener(mailSession(), emailUsername, emailPassword, emailService);
     }
+  
 }

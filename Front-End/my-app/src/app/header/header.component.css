@@ -8,8 +8,15 @@
   width: 100%;
   border-bottom: 5px solid #000000;
   background-color: #ffcc00;
-  margin-bottom: 20px; /* Aggiunto margine inferiore per separare dal messaggio di errore */
 }
+
+/*.fixed-top{
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}*/
 
 .navbar-nav {
   gap: 15%;

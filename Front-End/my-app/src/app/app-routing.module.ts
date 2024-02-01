@@ -11,6 +11,7 @@ import { AdminTaxiComponent } from './admin-taxi/admin-taxi.component';
 import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.component';
 import { TassistaPendingRequestComponent } from './tassista-pending-request/tassista-pending-request.component';
 import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-request.component';
+import { TassistaEmailRequestComponent } from './tassista-email-request/tassista-email-request.component';
 
 const routes : Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes : Routes = [
   {path:'analytics', component: AdminAnalyticsComponent, canActivate : [RouteGuardService]},
   {path: 'pending-request', component: TassistaPendingRequestComponent, canActivate : [RouteGuardService]},
   {path: 'my-request', component: TassistaMyRequestComponent, canActivate : [RouteGuardService]},
+  {path: 'email-request', component: TassistaEmailRequestComponent, canActivate : [RouteGuardService]},
  
 ];
 

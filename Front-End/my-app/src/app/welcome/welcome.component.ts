@@ -274,6 +274,10 @@ export class WelcomeComponent implements OnInit {
     this.router.navigate(['/my-request']);
   }
 
+  navigateToEmailRequest() {
+    this.router.navigate(['/email-request']);
+  }
+
 
 
 }

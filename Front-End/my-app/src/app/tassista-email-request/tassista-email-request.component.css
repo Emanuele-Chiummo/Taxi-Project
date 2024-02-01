@@ -1,26 +1,3 @@
-
-  
-  /* Stile per i pulsanti dei tab */
-  .nav-item {
-    margin-bottom: 0.5rem;
-  }
-  
-  .nav-link {
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    color:#fff;
-  }
-  
-  .nav-link.active {
-    background-color: #ffc20f;
-    color: #333333;
-    border-color: #333333;
-  }
-  
-  /* Aggiungi altri stili necessari per le tabelle e il resto della pagina */
-  
-
 .table-container {
     margin: 0 auto;
 }

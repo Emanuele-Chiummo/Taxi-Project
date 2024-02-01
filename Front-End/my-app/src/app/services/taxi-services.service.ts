@@ -105,6 +105,20 @@ export class TaxiServicesService {
     return this.http.post<any>('http://localhost:8080/api/request', body)
   }
 
+  getAllEmail(state: string): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/api/email')
+  }
+
+  updateEmail(emailId: number, updatePayload: any): Observable<any> {
+
+    return this.http.put<any>('http://localhost:8080/api/email/' + emailId, updatePayload);
+  }
+
+  getMyEmail(emailId: number): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/api/email/accepted/' + emailId)
+  }
+
+
   //User Service
 
   getAllUser(): Observable<any> {

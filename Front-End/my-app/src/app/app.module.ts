@@ -19,6 +19,7 @@ import { AdminAnalyticsComponent } from './admin-analytics/admin-analytics.compo
 import { TassistaPendingRequestComponent } from './tassista-pending-request/tassista-pending-request.component';
 import { TassistaMyRequestComponent } from './tassista-my-request/tassista-my-request.component';
 import { NgChartsModule } from 'ng2-charts';
+import { TassistaEmailRequestComponent } from './tassista-email-request/tassista-email-request.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgChartsModule } from 'ng2-charts';
     AdminAnalyticsComponent,
     TassistaPendingRequestComponent,
     TassistaMyRequestComponent,
+    TassistaEmailRequestComponent,
   ],
   imports: [
     BrowserModule,
