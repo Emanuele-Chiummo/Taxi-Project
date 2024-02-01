@@ -4,7 +4,7 @@
 Java Project for the Course Programmazione 3 e Laboratorio di Programmazione 3 from the Computer Science Graduation from University Parthenope Napoli
 
 
-![Logo](https://github.com/Emanuele-Chiummo/Travel-Organization/blob/d0f683a7fcb928a60f884a888b21b6c6cc30c407/logo.png)
+![Logo](https://github.com/Emanuele-Chiummo/Taxi-Project/blob/main/Front-End/my-app/src/assets/logo.png)
 
 # TaxiToGo - Information 
 
