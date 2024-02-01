@@ -160,7 +160,7 @@ Into `scr/main/resources/application.properties` change this value
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.emanuelechiummo.it/)
