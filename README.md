@@ -151,6 +151,22 @@ Into `scr/main/resources/application.properties` change this value
 - [Official Documentation Spring](https://spring.io/)
 - [Official Documentation Angular](https://angular.io/)
 
+## Documentation
+
+The documentation was generated using the javadoc tool and is available at the following location
+
+```bash
+  Back-End/taxi/doc
+```
+
+Also implemented the swagger for visualization and live testing within the 'project available at this address 
+
+http://localhost:8080/swagger-ui/index.html
+
+
+
+
+
 ## Roadmap
 
 - Responsive layouts for all devices [Completed]
