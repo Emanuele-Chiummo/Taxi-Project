@@ -6,9 +6,18 @@ import it.parthenope.taxi.dto.DriverDto;
 import it.parthenope.taxi.mappers.AuthMapper;
 import it.parthenope.taxi.model.Driver;
 
+/**
+ * Implementazione di {@link AuthMapper} che gestisce la conversione tra oggetti DTO (DriverDto) e oggetti modello (Driver).
+ */
 @Component
 public class AuthMapperImpl implements AuthMapper {
 
+    /**
+     * Converte un oggetto DriverDto in un oggetto Driver.
+     *
+     * @param driverDto L'oggetto DriverDto da convertire.
+     * @return Un oggetto Driver convertito.
+     */
     public Driver dtoToModel(DriverDto driverDto) {
         if (driverDto == null) {
             return null;
@@ -28,6 +37,12 @@ public class AuthMapperImpl implements AuthMapper {
         return driver;
     }
 
+    /**
+     * Converte un oggetto Driver in un oggetto DriverDto.
+     *
+     * @param driver L'oggetto Driver da convertire.
+     * @return Un oggetto DriverDto convertito.
+     */
     public DriverDto modelToDto(Driver driver) {
         if (driver == null) {
             return null;

@@ -1,0 +1,10 @@
+it.parthenope.taxi
+it.parthenope.taxi.controller
+it.parthenope.taxi.dto
+it.parthenope.taxi.email
+it.parthenope.taxi.mappers
+it.parthenope.taxi.mappers.impl
+it.parthenope.taxi.model
+it.parthenope.taxi.repository
+it.parthenope.taxi.services
+it.parthenope.taxi.services.impl

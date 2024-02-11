@@ -11,6 +11,9 @@ import it.parthenope.taxi.model.Rates;
 import it.parthenope.taxi.repository.LocationRepository;
 import it.parthenope.taxi.repository.RateRepository;
 
+/**
+ * Implementazione di {@link CourseMapper} che gestisce la conversione tra oggetti DTO (CourseDto) e oggetti modello (Course).
+ */
 @Component
 public class CourseMapperImpl implements CourseMapper {
 
@@ -20,13 +23,18 @@ public class CourseMapperImpl implements CourseMapper {
     @Autowired
     private RateRepository ratesRepository;
 
+    /**
+     * Converte un oggetto CourseDto in un oggetto Course.
+     *
+     * @param courseDto L'oggetto CourseDto da convertire.
+     * @return Un oggetto Course convertito.
+     */
     @Override
     public Course dtoToModel(CourseDto courseDto) {
         Course course = new Course();
 
         course.setId(courseDto.getId());
-        
-        
+
         Location startLocation = courseDto.getStartLocation();
         if (startLocation.getId() != null) {
             startLocation = locationRepository.findById(startLocation.getId()).orElse(null);
@@ -35,7 +43,6 @@ public class CourseMapperImpl implements CourseMapper {
         }
         course.setStartLocation(startLocation);
 
-        
         Location endLocation = courseDto.getEndLocation();
         if (endLocation.getId() != null) {
             endLocation = locationRepository.findById(endLocation.getId()).orElse(null);
@@ -46,7 +53,6 @@ public class CourseMapperImpl implements CourseMapper {
 
         course.setKm(courseDto.getKm());
 
-        
         Rates ratesType = courseDto.getRatesType();
         /*if (ratesType.getId() != null) {
             ratesType = ratesRepository.findById(ratesType.getId()).orElse(null);
@@ -60,6 +66,12 @@ public class CourseMapperImpl implements CourseMapper {
         return course;
     }
 
+    /**
+     * Converte un oggetto Course in un oggetto CourseDto.
+     *
+     * @param course L'oggetto Course da convertire.
+     * @return Un oggetto CourseDto convertito.
+     */
     @Override
     public CourseDto modelToDto(Course course) {
         CourseDto courseDto = new CourseDto();

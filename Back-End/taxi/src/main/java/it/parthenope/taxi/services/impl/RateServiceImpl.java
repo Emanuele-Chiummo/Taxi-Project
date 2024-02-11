@@ -16,6 +16,10 @@ import it.parthenope.taxi.repository.RateRepository;
 
 import it.parthenope.taxi.services.RateService;
 
+/**
+ * Implementazione {@link RateService} per la gestione delle tariffe.
+ */
+
 @Service
 public class RateServiceImpl implements RateService {
 
@@ -24,6 +28,13 @@ public class RateServiceImpl implements RateService {
 
 	@Autowired
 	RateRepository rateRepository;
+	
+	/**
+     * Restituisce tutte le tariffe nel sistema.
+     *
+     * @return Una lista di oggetti {@link RateDto} rappresentanti tutte le tariffe nel sistema.
+     * @see RateService#getAllRates()
+     */
 
 
 

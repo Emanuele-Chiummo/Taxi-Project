@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import it.parthenope.taxi.model.Rates;
 
+/**
+ * Repository per l'accesso ai dati relativi alle tariffe.
+ */
+
 @Repository
 public interface RateRepository extends JpaRepository<Rates, Integer> {
 	

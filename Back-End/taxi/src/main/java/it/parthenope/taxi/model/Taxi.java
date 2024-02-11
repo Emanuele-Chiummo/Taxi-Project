@@ -12,57 +12,96 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Rappresenta le informazioni relative ai taxi.
+ */
 @Entity
 @Table(name = "taxi")
 public class Taxi {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Column
-	private String identifier;
+    @Column
+    private String identifier;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "driver_id")
-	private Driver driver;
-	
-	@Column(name = "active")
-	private Integer active;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
-	public Integer getId() {
-		return id;
-	}
+    @Column(name = "active")
+    private Integer active;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * Restituisce l'identificatore univoco del taxi.
+     *
+     * @return L'identificatore del taxi.
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	public String getIdentifier() {
-		return identifier;
-	}
+    /**
+     * Imposta l'identificatore univoco del taxi.
+     *
+     * @param id L'identificatore del taxi.
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
+    /**
+     * Restituisce l'identificatore del taxi.
+     *
+     * @return L'identificatore del taxi.
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
 
-	public Driver getDriver() {
-		return driver;
-	}
+    /**
+     * Imposta l'identificatore del taxi.
+     *
+     * @param identifier L'identificatore del taxi.
+     */
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
-	}
+    /**
+     * Restituisce il conducente associato al taxi.
+     *
+     * @return Il conducente associato al taxi.
+     */
+    public Driver getDriver() {
+        return driver;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    /**
+     * Imposta il conducente associato al taxi.
+     *
+     * @param driver Il conducente associato al taxi.
+     */
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
-	
-	
+    /**
+     * Restituisce lo stato di attivazione del taxi.
+     *
+     * @return Lo stato di attivazione del taxi.
+     */
+    public Integer getActive() {
+        return active;
+    }
 
-
+    /**
+     * Imposta lo stato di attivazione del taxi.
+     *
+     * @param active Lo stato di attivazione del taxi.
+     */
+    public void setActive(Integer active) {
+        this.active = active;
+    }
 }

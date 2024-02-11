@@ -11,6 +11,10 @@ import it.parthenope.taxi.dto.RateDto;
 import it.parthenope.taxi.services.RateService;
 import it.parthenope.taxi.services.TaxiService;
 
+/**
+ * Controller che gestisce le operazioni relative alle tariffe.
+ */
+
 @RestController
 
 @CrossOrigin(
@@ -18,8 +22,18 @@ import it.parthenope.taxi.services.TaxiService;
         allowedHeaders = {"*"})
 public class RatesController {
 	
+	/**
+     * Servizio per la gestione delle tariffe.
+     */
+	
 	@Autowired
 	RateService ratesService;
+	
+	/**
+     * Endpoint per ottenere la lista di tutte le tariffe disponibili.
+     *
+     * @return Lista di oggetti RateDto rappresentanti le tariffe.
+     */
 	
 	@GetMapping("/api/rate")
 	public List<RateDto> getAllRates(){

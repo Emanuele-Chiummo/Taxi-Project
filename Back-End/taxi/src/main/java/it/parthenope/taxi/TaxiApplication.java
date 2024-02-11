@@ -17,24 +17,25 @@ import jakarta.mail.MessagingException;
 
 
 
+/**
+ * Classe principale per l'applicazione Taxi. Questa classe avvia l'applicazione Spring Boot
+ * e inizializza il listener per le email.
+ */
 @SpringBootApplication(scanBasePackages = { "it.parthenope.taxi" })
-public class TaxiApplication{
+public class TaxiApplication {
 
-	public static void main(String[] args) throws MessagingException, InterruptedException, IOException {
-		//SpringApplication.run(TaxiApplication.class, args);
-		
-		ConfigurableApplicationContext appContext = SpringApplication.run(TaxiApplication.class, args);
-	    EmailListener emailListener = appContext.getBean(EmailListener.class);
-	    emailListener.startListening();
-	}
-	
-	/*@Override
-	 public void run(String... args) throws Exception {
-	  ApplicationContext context = new AnnotationConfigApplicationContext(EmailConfiguration.class);
-	  EmailListener emailListener = context.getBean(EmailListener.class);
-	  emailListener.startListening();
-	 } */
-	
-	
-
+    /**
+     * Metodo principale che avvia l'applicazione Spring Boot e inizializza il listener per le email.
+     *
+     * @param args Gli eventuali argomenti da passare all'applicazione.
+     * @throws MessagingException     Eccezione generata in caso di errori durante la gestione delle email.
+     * @throws InterruptedException   Eccezione generata in caso di interruzione durante l'esecuzione.
+     * @throws IOException            Eccezione generata in caso di errori di input/output.
+     */
+    public static void main(String[] args) throws MessagingException, InterruptedException, IOException {
+        ConfigurableApplicationContext appContext = SpringApplication.run(TaxiApplication.class, args);
+        EmailListener emailListener = appContext.getBean(EmailListener.class);
+        emailListener.startListening();
+    }
 }
+
